@@ -6,7 +6,7 @@
 
 Dieses Projekt ist ein interaktives 3D-Labyrinth-Spiel, entwickelt mit Unity und der High Definition Render Pipeline (HDRP). Ziel ist es, in einem realistisch beleuchteten Labyrinth den Ausgang zu finden. Die Spielumgebung nutzt Ray-Tracing-Technologien zur realitätsnahen Darstellung von Licht, Schatten, Spiegelungen und Materialien.
 
-Der Spieler bewegt sich in der Ego-Perspektive durch das Labyrinth, sammelt eine Taschenlampe auf und nutzt diese, um dunkle Bereiche auszuleuchten. Weiter Details sind im beigefügten Bericht "Abgabe_1_Stengl_1576756.pdf" zu finden.
+Der Spieler bewegt sich in der Ego-Perspektive durch das Labyrinth, sammelt eine Taschenlampe auf und nutzt diese, um dunkle Bereiche auszuleuchten. Weiter Details sind im beigefügten Bericht "Abgabe_1_Stengl.pdf" zu finden.
 
 Um das Spiel zu starten, wird der gesamte Ordner "Abgabe 1" heruntergeladen. Danach kann "Abgabe 1\Assets\MainScene.unity" mit Unity gestartet werden und los geht's :)
 
@@ -55,4 +55,3 @@ Um das Spiel zu starten, wird der gesamte Ordner "Abgabe 1" heruntergeladen. Dan
 ## Autor
 
 **Jonathan Stengl**  
-Matrikelnummer: 1576756  
