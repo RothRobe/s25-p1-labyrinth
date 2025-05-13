@@ -14,11 +14,11 @@ Um das Spiel zu starten, wird der gesamte Ordner "Abgabe 1" heruntergeladen. Dan
 
 ## Features
 
-- 🧭 **Labyrinth-Gameplay**: Spieler startet an einem zufälligen Punkt und sucht den Ausgang.
+- 🧭 **Labyrinth-Gameplay**: Spieler startet in der Mitte des Labyrinths und muss den Ausgang suchen.
 - 🔦 **Interaktive Taschenlampe**: Muss erst gefunden werden, bevor sie nutzbar ist.
 - 🧱 **Realistische Materialien**: Verschiedene Oberflächen mit Absorption, Reflexion und Transparenz.
-- 💡 **Dynamische Beleuchtung**: Punktlichter, Emission Lights, Schatten und Reflexionen.
-- 🎮 **Intuitive Steuerung**: Bewegung, Springen, Ducken, Lichtsteuerung.
+- 💡 **Dynamische Beleuchtung**: Ray-traced Point Lights, Emission Lights und Shadows.
+- 🎮 **Steuerung**: Gehen, Laufen, Springen, Ducken, Lichtsteuerung.
 
 ## Steuerung
 
