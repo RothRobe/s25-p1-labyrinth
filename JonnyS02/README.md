@@ -1,10 +1,14 @@
 # Begehbares 3D-Labyrinth mit Ray Tracing in Unity
 
+![Screenshot](img/img2.png)
+
 ## Projektbeschreibung
 
 Dieses Projekt ist ein interaktives 3D-Labyrinth-Spiel, entwickelt mit Unity und der High Definition Render Pipeline (HDRP). Ziel ist es, in einem realistisch beleuchteten Labyrinth den Ausgang zu finden. Die Spielumgebung nutzt Ray-Tracing-Technologien zur realitätsnahen Darstellung von Licht, Schatten, Spiegelungen und Materialien.
 
 Der Spieler bewegt sich in der Ego-Perspektive durch das Labyrinth, sammelt eine Taschenlampe auf und nutzt diese, um dunkle Bereiche auszuleuchten.
+
+![Screenshot](img/img1.png)
 
 ## Features
 
@@ -24,6 +28,8 @@ Der Spieler bewegt sich in der Ego-Perspektive durch das Labyrinth, sammelt eine
 | Laufen           | Umschalttaste (Shift)|
 | Kamera drehen    | Mausbewegung         |
 | Taschenlampe an/aus | F (nach Einsammeln) |
+
+![Screenshot](img/img3.png)
 
 ## Technik & Tools
 
