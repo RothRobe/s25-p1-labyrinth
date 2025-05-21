@@ -15,6 +15,9 @@ public class ImageBehavior : MonoBehaviour
     
     private RawImage imageUI;
     private PlayerController playerController;
+    
+    private AudioSource ambientAudioSource;  
+    private AudioSource foundAudioSource;    
 
     void Start()
     {
@@ -27,6 +30,14 @@ public class ImageBehavior : MonoBehaviour
         }
         
         playerController = GameObject.FindWithTag("Player")?.GetComponent<PlayerController>();
+        
+        // Hole beide AudioSources (Reihenfolge: [0] = ambient, [1] = found)
+        AudioSource[] sources = GetComponents<AudioSource>();
+        if (sources.Length >= 2)
+        {
+            ambientAudioSource = sources[0];
+            foundAudioSource = sources[1];
+        }
         
         LoadImage();
     }
@@ -98,8 +109,6 @@ public class ImageBehavior : MonoBehaviour
 
     void ShowImage()
     {
-        Debug.Log(imageUI == null);
-        Debug.Log(loadedTexture == null);
         if (imageUI == null || loadedTexture == null) return;
 
         imageUI.texture = loadedTexture;
@@ -111,6 +120,22 @@ public class ImageBehavior : MonoBehaviour
         
         if (playerController != null)
             playerController.enabled = false;
+        
+        // Glitzer-Sound stoppen
+        if (ambientAudioSource != null)
+            ambientAudioSource.Stop();
+        else
+        {
+            Debug.Log("AmbientAudio null");
+        }
+
+        // Fund-Jingle abspielen
+        if (foundAudioSource != null && !foundAudioSource.isPlaying)
+            foundAudioSource.Play();
+        else
+        {
+            Debug.Log("FoundAudio null");
+        }
     }
 
     void HideImage()

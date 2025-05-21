@@ -499,6 +499,7 @@ GameObject:
   - component: {fileID: 732363975}
   - component: {fileID: 732363974}
   - component: {fileID: 732363973}
+  - component: {fileID: 732363977}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -691,6 +692,14 @@ Transform:
   - {fileID: 1823688467}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!81 &732363977
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 732363972}
+  m_Enabled: 1
 --- !u!1 &1277812876
 GameObject:
   m_ObjectHideFlags: 0
@@ -720,7 +729,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66d30fde9795f40888a924aedcef2155, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  asciiFilePath: Assets/Mazes/maze.txt
+  asciiFilePath: Assets/Mazes/bigmaze.txt
   wallPrefab: {fileID: 3848009739280733103, guid: 66244d070c4514be5b088473de092e98, type: 3}
   glassPrefab: {fileID: 4738656205751395314, guid: 584aa8f20c5f7436cab15378a8275de5, type: 3}
   metalPrefab: {fileID: 2127472688412500375, guid: 4417eefe8096d4f4c9c08fea070367c0, type: 3}
