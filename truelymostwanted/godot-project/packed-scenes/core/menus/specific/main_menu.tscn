@@ -10,16 +10,19 @@ TargetMenuName = "Setup"
 Functions = []
 
 [node name="MenuNavButton2" parent="Control/VBoxContainer" index="1" node_paths=PackedStringArray("Functions")]
+visible = false
 text = "Help"
 TargetMenuName = "Tutorial"
 Functions = []
 
 [node name="MenuNavButton3" parent="Control/VBoxContainer" index="2" node_paths=PackedStringArray("Functions")]
+visible = false
 text = "Options"
 TargetMenuName = "Options"
 Functions = []
 
 [node name="MenuNavButton4" parent="Control/VBoxContainer" index="3" node_paths=PackedStringArray("Functions")]
+visible = false
 text = "Credits"
 TargetMenuName = "Credits"
 Functions = []
