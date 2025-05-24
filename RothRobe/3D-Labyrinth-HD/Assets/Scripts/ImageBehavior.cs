@@ -31,7 +31,6 @@ public class ImageBehavior : MonoBehaviour
         
         playerController = GameObject.FindWithTag("Player")?.GetComponent<PlayerController>();
         
-        // Hole beide AudioSources (Reihenfolge: [0] = ambient, [1] = found)
         AudioSource[] sources = GetComponents<AudioSource>();
         if (sources.Length >= 2)
         {
@@ -62,8 +61,6 @@ public class ImageBehavior : MonoBehaviour
 
     void LoadImage()
     {
-        Debug.Log("Starte Imageloader");
-
         if (!Directory.Exists(imagepath))
         {
             Debug.LogError($"Ordner nicht gefunden: {imagepath}");
@@ -100,7 +97,6 @@ public class ImageBehavior : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log("OnTriggerEnter. Other Tag: " + other.tag);
         if (other.CompareTag("Player") && !isViewing)
         {
             ShowImage();
@@ -121,15 +117,13 @@ public class ImageBehavior : MonoBehaviour
         if (playerController != null)
             playerController.enabled = false;
         
-        // Glitzer-Sound stoppen
         if (ambientAudioSource != null)
             ambientAudioSource.Stop();
         else
         {
             Debug.Log("AmbientAudio null");
         }
-
-        // Fund-Jingle abspielen
+        
         if (foundAudioSource != null && !foundAudioSource.isPlaying)
             foundAudioSource.Play();
         else
