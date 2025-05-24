@@ -385,7 +385,7 @@ MonoBehaviour:
     m_Value: 0
   sampleCount:
     m_OverrideState: 1
-    m_Value: 8
+    m_Value: 25
   bounceCount:
     m_OverrideState: 1
     m_Value: 5

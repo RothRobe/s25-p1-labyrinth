@@ -259,10 +259,10 @@ MonoBehaviour:
     m_Value: 4
   m_RayLength:
     m_OverrideState: 1
-    m_Value: 10
+    m_Value: 15
   m_SampleCount:
     m_OverrideState: 1
-    m_Value: 8
+    m_Value: 25
   m_Denoise:
     m_OverrideState: 1
     m_Value: 1
@@ -1603,7 +1603,7 @@ MonoBehaviour:
     m_Value: 0
   sampleCount:
     m_OverrideState: 1
-    m_Value: 15
+    m_Value: 25
   bounceCount:
     m_OverrideState: 1
     m_Value: 5
@@ -1820,7 +1820,7 @@ MonoBehaviour:
     m_Value: 1
   enable:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 1
   tracing:
     m_OverrideState: 1
     m_Value: 2
@@ -1881,10 +1881,10 @@ MonoBehaviour:
     m_Value: 0
   sampleCount:
     m_OverrideState: 1
-    m_Value: 2
+    m_Value: 25
   bounceCount:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 5
   m_Denoise:
     m_OverrideState: 1
     m_Value: 1
