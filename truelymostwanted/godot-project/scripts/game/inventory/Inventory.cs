@@ -83,11 +83,11 @@ public partial class Inventory : Resource
             }
             
             //(2.2) Find the first empty slot
-            var canFindEmpty = ItemSlots.TryFindFirst(s => s.IsEmpty(), out var emptySlot);
+            var canFindEmpty = ItemSlots.TryFindFirst(s => s.HasNoItemAssigned() && s.IsEmpty(), out var emptySlot);
             if (canFindEmpty)
             {
-                emptySlot.Store(itemData, amount, out remainingAmount);
-                _SlotUpdated?.Invoke(this, startedSlot.ID);
+                emptySlot.StoreForced(itemData, amount, out remainingAmount);
+                _SlotUpdated?.Invoke(this, emptySlot.ID);
                 continue;
             }
 

@@ -19,7 +19,7 @@ public partial class InventorySlot : Resource
     public bool HasAmount() => Amount > 0;
     public bool MaximumAmountReached() => Amount == Item.MaxStackSize;
     
-    public bool CanStoreItem(ItemData item) => HasItemAssigned(item) && HasAmount() && !MaximumAmountReached();
+    public bool CanStoreItem(ItemData item) => HasItemAssigned(item) && !MaximumAmountReached();
     
     public bool Clear()
     {
@@ -48,7 +48,7 @@ public partial class InventorySlot : Resource
 
     public bool Store(ItemData item, int amount, out int remainingAmount)
     {
-        if (item is null || amount <= 0 || Item != item)
+        if (item is null || amount <= 0)
         {
             remainingAmount = amount;
             return false;
@@ -65,5 +65,14 @@ public partial class InventorySlot : Resource
         Amount += amountToStore;
         remainingAmount = amount - amountToStore;
         return true;   
+    }
+
+    public bool StoreForced(ItemData item, int amount, out int remainingAmount)
+    {
+        Item = item;
+        var amountToStore = Math.Min(amount, Item.MaxStackSize);
+        Amount += amountToStore;
+        remainingAmount = amount - amountToStore;
+        return true; 
     }
 }
