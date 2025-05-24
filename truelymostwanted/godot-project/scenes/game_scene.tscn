@@ -1,8 +1,9 @@
-[gd_scene load_steps=15 format=3 uid="uid://c4i4mdgyjqgtg"]
+[gd_scene load_steps=16 format=3 uid="uid://c4i4mdgyjqgtg"]
 
 [ext_resource type="Script" uid="uid://crx5v2lrs7lxf" path="res://scripts/GameApplication.cs" id="1_s76x2"]
 [ext_resource type="PackedScene" uid="uid://c2xer14lv8jdx" path="res://packed-scenes/core/menus/specific/setup_menu.tscn" id="4_77hjl"]
 [ext_resource type="PackedScene" uid="uid://tf1f4m60ri25" path="res://packed-scenes/core/time/time_controller.tscn" id="9_rvs2r"]
+[ext_resource type="Script" uid="uid://ctm2fi05k81fr" path="res://scripts/game/player/PlayerController3D.cs" id="10_tqxxy"]
 [ext_resource type="PackedScene" uid="uid://bj17hl5840dts" path="res://packed-scenes/game/players/player_3d.tscn" id="11_ldkr4"]
 [ext_resource type="PackedScene" uid="uid://dt62vrc0wd1gh" path="res://packed-scenes/game/levels/level_controller_3d.tscn" id="12_liy57"]
 [ext_resource type="PackedScene" uid="uid://b0g7xqaa1qqgb" path="res://packed-scenes/core/menus/menu_controller.tscn" id="12_mwyo0"]
@@ -115,7 +116,12 @@ shape = SubResource("WorldBoundaryShape3D_bw6k5")
 visible = false
 mesh = SubResource("PlaneMesh_y3j0m")
 
-[node name="Player3D" parent="Game" instance=ExtResource("11_ldkr4")]
+[node name="PlayerController3D" type="Node3D" parent="Game" node_paths=PackedStringArray("CurrentPlayer")]
+script = ExtResource("10_tqxxy")
+CurrentPlayer = NodePath("Player3D")
+metadata/_custom_type_script = "uid://ctm2fi05k81fr"
+
+[node name="Player3D" parent="Game/PlayerController3D" instance=ExtResource("11_ldkr4")]
 transform = Transform3D(-1, 0, 1.50996e-07, 0, 1, 0, -1.50996e-07, 0, -1, 0, 0.636973, 0.822873)
 
 [node name="LevelController3D" parent="Game" instance=ExtResource("12_liy57")]
