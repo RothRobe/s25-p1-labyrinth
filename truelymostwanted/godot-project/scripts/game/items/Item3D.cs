@@ -2,7 +2,8 @@
 
 namespace LabyrinthExplorer3D.scripts.game.items;
 
-public abstract partial class Item3D : Node3D
+[GlobalClass]
+public partial class Item3D : Node3D
 {
     [Export] public ItemData ItemData;
     
