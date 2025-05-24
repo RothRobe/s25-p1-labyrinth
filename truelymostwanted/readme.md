@@ -6,9 +6,9 @@ Dieses Projekt ist ein 3D-Labyrinth-Generator, der aus beliebigen Bilddateien au
 
 ## Technologien
 
-- **Godot Engine 4.5 Development Snapshot 4**
-- **.NET 9.0 (C# 13)**
-- **Blender 4.4.3**  
+- **Godot Engine 4.5 Development Snapshot 4** https://godotengine.org/article/dev-snapshot-godot-4-5-dev-4/
+- **.NET 9.0 (C# 13)** https://dotnet.microsoft.com/en-us/download
+- **Blender 4.4.3** https://www.blender.org/download/
   (Erstellung und Export der 3D-Meshes für Tiles und Level-Strukturen)
 - **Paint.NET**  
   (Bearbeitung und Vorbereitung der Quellbilder als Level-Grundlage)
