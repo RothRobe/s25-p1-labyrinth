@@ -1,7 +1,9 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using Godot;
 using Godot.Collections;
+using LabyrinthExplorer3D.scripts.game.items;
 using LabyrinthExplorer3D.scripts.game.player;
 
 namespace LabyrinthExplorer3D.scripts.game.level;
@@ -37,6 +39,7 @@ public partial class LevelGenerator3D : Node3D
 
     [Export] public LevelController3D LevelController;
     [Export] public LevelTileSetDictionary LevelTileSetDictionary;
+    [Export] public PackedScene ItemPackedScene;
 
     [Export] public Color EmptyTileColor = Colors.Black;
     [Export] public Color RegularTileColor = Colors.White;
@@ -167,7 +170,16 @@ public partial class LevelGenerator3D : Node3D
                     _TryInstantiateMesh(level, position, mesh);
 
                     if (IsSpawnField(img, imgSize, x, y))
+                    {
                         PlayerController3D.Instance.CurrentPlayer.GlobalPosition = position + new Vector3(0, 3, 0);
+                    }
+
+                    if (IsItemField(img, imgSize, x, y))
+                    {
+                        var itemNode = ItemPackedScene.Instantiate<Item3D>();
+                        level.ItemsParent3D.AddChild(itemNode);
+                        itemNode.GlobalPosition = position;
+                    }
                     
                 }
             }
