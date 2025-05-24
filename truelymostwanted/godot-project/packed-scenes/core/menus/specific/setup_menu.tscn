@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://c2xer14lv8jdx"]
+[gd_scene load_steps=10 format=3 uid="uid://c2xer14lv8jdx"]
 
 [ext_resource type="PackedScene" uid="uid://bxxx4vmewps02" path="res://packed-scenes/core/menus/menu.tscn" id="1_yrfkk"]
 [ext_resource type="Script" uid="uid://uqtd11u1eiw8" path="res://scripts/core/functions/StartGameFunction.cs" id="2_jjj26"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://dx766eiqa564q" path="res://scripts/core/functions/FunctionButton.cs" id="3_58xhv"]
 [ext_resource type="Script" uid="uid://ccpr1035nlxns" path="res://scripts/game/functions/ResetInventoryFunction.cs" id="4_tfjcd"]
 [ext_resource type="Texture2D" uid="uid://bta46sjflics" path="res://resources/textures/gui_menu_nav_button_frame.png" id="4_yt75h"]
+[ext_resource type="Script" uid="uid://dq1awig02xr48" path="res://scripts/game/functions/EnableGameUiFunction.cs" id="5_ngfh1"]
 [ext_resource type="Script" uid="uid://p10unih1fet1" path="res://scripts/game/functions/LoadLevelFunction.cs" id="6_pjyfa"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jatpd"]
@@ -29,7 +30,7 @@ Functions = []
 text = "Start"
 TargetMenuName = "Pause"
 TargetVisibility = false
-Functions = [NodePath("GenerateLevelFunction"), NodePath("StartGameFunction"), NodePath("ResetInventoryFunction")]
+Functions = [NodePath("GenerateLevelFunction"), NodePath("StartGameFunction"), NodePath("ResetInventoryFunction"), NodePath("EnableGameUiFunction")]
 
 [node name="GenerateLevelFunction" type="Node" parent="Control/VBoxContainer/MenuNavButton4" index="1"]
 script = ExtResource("2_pjyfa")
@@ -42,6 +43,10 @@ metadata/_custom_type_script = "uid://uqtd11u1eiw8"
 [node name="ResetInventoryFunction" type="Node" parent="Control/VBoxContainer/MenuNavButton4" index="3"]
 script = ExtResource("4_tfjcd")
 metadata/_custom_type_script = "uid://ccpr1035nlxns"
+
+[node name="EnableGameUiFunction" type="Node" parent="Control/VBoxContainer/MenuNavButton4" index="4"]
+script = ExtResource("5_ngfh1")
+metadata/_custom_type_script = "uid://dq1awig02xr48"
 
 [node name="MenuNavButton5" parent="Control/VBoxContainer" index="4" node_paths=PackedStringArray("Functions")]
 TargetMenuName = "Main"
