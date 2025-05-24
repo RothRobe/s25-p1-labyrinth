@@ -113,4 +113,14 @@ public partial class Inventory : Resource
         _SlotUpdated?.Invoke(this, itemSlotIndex);
         return true;
     }
+
+    public void Clear()
+    {
+        for (var i = 0; i < ItemSlots.Count; i++)
+        {
+            ItemSlots[i].Clear();
+            _SlotUpdated?.Invoke(this, i);
+        }
+        SelectSlot(0);
+    }
 }

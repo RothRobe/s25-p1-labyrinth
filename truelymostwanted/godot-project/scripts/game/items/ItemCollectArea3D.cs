@@ -27,7 +27,10 @@ public partial class ItemCollectArea3D : Area3D
         
         GD.Print("Player collects item");
         inventoryComponent.Inventory.StoreItem(Item.ItemData, 1, out var remainingAmount);
-        if(remainingAmount == 0)
-            Item.QueueFree();
+        if (remainingAmount == 0)
+        {
+            Item.Hide();
+            Item.CallDeferred(Node.MethodName.QueueFree);
+        }
     }
 }

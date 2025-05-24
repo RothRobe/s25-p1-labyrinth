@@ -9,8 +9,7 @@ public partial class StopGameFunction : Function, IFunction
 {
     public static void Execute(Node node)
     {
-        Input.MouseMode = Input.MouseModeEnum.Visible;
-        node.GetTree().SetPause(true);
+        PauseGameFunction.Execute(node);
         MenuController.Instance.ToggleCurrentMenu(true);
         GameUI.Instance.Hide();
     }
