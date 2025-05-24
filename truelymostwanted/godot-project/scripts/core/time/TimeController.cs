@@ -24,6 +24,14 @@ public partial class TimeController : Node3D
     [Export] public int CurrentDay = 0;
     [Export] public double CurrentTime = 0;
 
+    public void SetTime(int day, double timeInSec)
+    {
+        CurrentDay = day + (int)(timeInSec / SecondsPerDay);
+        CurrentTime = timeInSec % SecondsPerDay;
+        
+        _TimeChanged?.Invoke(day, timeInSec, SecondsPerDay);
+    }
+    
     private void _UpdateTime(double delta)
     {
         CurrentTime += delta;
