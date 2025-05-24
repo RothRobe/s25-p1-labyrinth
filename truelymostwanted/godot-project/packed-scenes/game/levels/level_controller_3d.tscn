@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://dt62vrc0wd1gh"]
+
+[ext_resource type="Script" uid="uid://cii2tl2wq3xic" path="res://scripts/game/level/LevelController3D.cs" id="1_e1amf"]
+[ext_resource type="Script" uid="uid://dbfcdlgxsvnmg" path="res://scripts/game/level/LevelGenerator3D.cs" id="2_52gui"]
+[ext_resource type="Resource" uid="uid://dnr3w6o8emb3t" path="res://resources/level_tiles/level_tileset_db.tres" id="3_rk4cn"]
+[ext_resource type="Script" uid="uid://dfj1o8ljrkqkk" path="res://scripts/game/level/Level3D.cs" id="4_4emlr"]
+
+[node name="LevelController3D" type="Node3D" node_paths=PackedStringArray("CurrentLevel")]
+script = ExtResource("1_e1amf")
+CurrentLevel = NodePath("Level3D")
+metadata/_custom_type_script = "uid://cii2tl2wq3xic"
+
+[node name="LevelGenerator3D" type="Node3D" parent="." node_paths=PackedStringArray("LevelController")]
+script = ExtResource("2_52gui")
+LevelController = NodePath("..")
+LevelTileSetDictionary = ExtResource("3_rk4cn")
+metadata/_custom_type_script = "uid://dbfcdlgxsvnmg"
+
+[node name="Level3D" type="Node3D" parent="."]
+script = ExtResource("4_4emlr")
+metadata/_custom_type_script = "uid://dfj1o8ljrkqkk"
