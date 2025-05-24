@@ -26,6 +26,9 @@ func generate_labyrinth_from_size(sizeX: int, sizeZ: int) -> void:
 	var walls = generate_labyrinth_walls(sizeX, sizeZ)
 	var lanterns = generate_lantern_positions(sizeX, sizeZ, walls)
 	
+	# Group individual wall blocks into larger wall segments
+	walls = group_wall_segments(walls)
+	
 	var labyrinth_data = {
 		"size": {"x": sizeX, "z": sizeZ},
 		"walls": walls,
@@ -64,7 +67,6 @@ func generate_labyrinth_walls(sizeX: int, sizeZ: int) -> Array:
 			if grid[x][z]:  # If this cell should be a wall
 				walls.append({
 					"position": {"x": x, "z": z},
-					"material": "reflecting"
 				})
 	
 	return walls
@@ -311,3 +313,127 @@ func get_unvisited_neighbors(x: int, z: int, visited: Array, sizeX: int, sizeZ: 
 				neighbors.append({"x": new_x, "z": new_z})
 	
 	return neighbors
+
+# Group individual wall blocks into larger wall segments and give them a material
+func group_wall_segments(individual_walls: Array) -> Array:
+	var wall_segments = []
+	var used_positions = {}
+	
+	# Create a lookup for wall positions
+	var wall_positions = {}
+	for wall in individual_walls:
+		var pos = wall.position
+		var key = str(pos.x) + "," + str(pos.z)
+		wall_positions[key] = wall
+	
+	# Process each wall block
+	for wall in individual_walls:
+		var pos = wall.position
+		var key = str(pos.x) + "," + str(pos.z)
+		
+		# Skip if already used in a segment
+		if used_positions.has(key):
+			continue
+		
+		var material = "reflecting"
+		var rand = randi_range(0,100)
+		if rand < 20:
+			material = "absorbing"
+		elif rand < 40:
+			material = "transparent"
+		elif rand < 50:
+			material = "metallic"
+		
+		# Try to create horizontal segment first
+		var horizontal_segment = create_horizontal_segment(pos.x, pos.z, wall_positions, used_positions, material)
+		if horizontal_segment.length > 1:
+			wall_segments.append(horizontal_segment.segment)
+			continue
+		
+		# Try to create vertical segment
+		var vertical_segment = create_vertical_segment(pos.x, pos.z, wall_positions, used_positions, material)
+		if vertical_segment.length > 1:
+			wall_segments.append(vertical_segment.segment)
+			continue
+		
+		# Single block wall (no adjacent walls in straight line)
+		used_positions[key] = true
+		wall_segments.append(wall)
+	
+	return wall_segments
+
+# Create a horizontal wall segment starting from given position
+func create_horizontal_segment(start_x: int, start_z: int, wall_positions: Dictionary, used_positions: Dictionary, material: String) -> Dictionary:
+	var end_x = start_x
+	
+	# Find the rightmost connected wall in the same row
+	while true:
+		var next_key = str(end_x + 1) + "," + str(start_z)
+		if wall_positions.has(next_key) and not used_positions.has(next_key):
+			end_x += 1
+		else:
+			break
+	
+	# Also check leftward from start position
+	var actual_start_x = start_x
+	while true:
+		var prev_key = str(actual_start_x - 1) + "," + str(start_z)
+		if wall_positions.has(prev_key) and not used_positions.has(prev_key):
+			actual_start_x -= 1
+		else:
+			break
+	
+	var length = end_x - actual_start_x + 1
+	
+	# Mark all positions in this segment as used
+	if length > 1:
+		for x in range(actual_start_x, end_x + 1):
+			var key = str(x) + "," + str(start_z)
+			used_positions[key] = true
+	
+	return {
+		"length": length,
+		"segment": {
+			"material": material,
+			"startPosition": {"x": actual_start_x, "z": start_z},
+			"endPosition": {"x": end_x, "z": start_z}
+		}
+	}
+
+# Create a vertical wall segment starting from given position
+func create_vertical_segment(start_x: int, start_z: int, wall_positions: Dictionary, used_positions: Dictionary, material: String) -> Dictionary:
+	var end_z = start_z
+	
+	# Find the topmost connected wall in the same column
+	while true:
+		var next_key = str(start_x) + "," + str(end_z + 1)
+		if wall_positions.has(next_key) and not used_positions.has(next_key):
+			end_z += 1
+		else:
+			break
+	
+	# Also check downward from start position
+	var actual_start_z = start_z
+	while true:
+		var prev_key = str(start_x) + "," + str(actual_start_z - 1)
+		if wall_positions.has(prev_key) and not used_positions.has(prev_key):
+			actual_start_z -= 1
+		else:
+			break
+	
+	var length = end_z - actual_start_z + 1
+	
+	# Mark all positions in this segment as used
+	if length > 1:
+		for z in range(actual_start_z, end_z + 1):
+			var key = str(start_x) + "," + str(z)
+			used_positions[key] = true
+	
+	return {
+		"length": length,
+		"segment": {
+			"material": material,
+			"startPosition": {"x": start_x, "z": actual_start_z},
+			"endPosition": {"x": start_x, "z": end_z}
+		}
+	}

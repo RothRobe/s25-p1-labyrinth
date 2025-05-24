@@ -116,6 +116,7 @@ func create_wall_lantern(lantern_data):
 	var lantern = OmniLight3D.new()
 	lantern.position = Vector3(lantern_data["position"]["x"], 2.2, lantern_data["position"]["z"])
 	lantern.name = "Lantern-"+str(lantern.position)
+	lantern.light_energy = 0.1
 	if lantern_data["direction"] == "north":
 		lantern.rotation_degrees = Vector3(0,270,0)
 	elif lantern_data["direction"] == "west":
