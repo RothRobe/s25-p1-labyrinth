@@ -1,4 +1,110 @@
 {
+	"lanterns": [
+		{
+			"direction": "west",
+			"position": {
+				"x": 1,
+				"z": 5
+			},
+			"type": "intersection"
+		},
+		{
+			"direction": "north",
+			"position": {
+				"x": 3,
+				"z": 11
+			},
+			"type": "intersection"
+		},
+		{
+			"direction": "east",
+			"position": {
+				"x": 11,
+				"z": 9
+			},
+			"type": "intersection"
+		},
+		{
+			"direction": "north",
+			"position": {
+				"x": 11,
+				"z": 11
+			},
+			"type": "intersection"
+		},
+		{
+			"direction": "north",
+			"position": {
+				"x": 0,
+				"z": 1
+			},
+			"type": "dead_end"
+		},
+		{
+			"direction": "east",
+			"position": {
+				"x": 1,
+				"z": 3
+			},
+			"type": "dead_end"
+		},
+		{
+			"direction": "north",
+			"position": {
+				"x": 3,
+				"z": 5
+			},
+			"type": "dead_end"
+		},
+		{
+			"direction": "east",
+			"position": {
+				"x": 5,
+				"z": 9
+			},
+			"type": "dead_end"
+		},
+		{
+			"direction": "north",
+			"position": {
+				"x": 9,
+				"z": 1
+			},
+			"type": "dead_end"
+		},
+		{
+			"direction": "north",
+			"position": {
+				"x": 12,
+				"z": 11
+			},
+			"type": "dead_end"
+		},
+		{
+			"direction": "south",
+			"position": {
+				"x": 5,
+				"z": 1
+			},
+			"type": "corridor"
+		},
+		{
+			"direction": "east",
+			"position": {
+				"x": 7,
+				"z": 5
+			},
+			"type": "corridor"
+		},
+		{
+			"direction": "east",
+			"position": {
+				"x": 11,
+				"z": 5
+			},
+			"type": "corridor"
+		}
+	],
 	"size": {
 		"x": 13,
 		"z": 13
@@ -99,7 +205,7 @@
 			"material": "reflecting",
 			"position": {
 				"x": 1,
-				"z": 8
+				"z": 2
 			}
 		},
 		{
@@ -120,210 +226,210 @@
 			"material": "reflecting",
 			"position": {
 				"x": 2,
+				"z": 2
+			}
+		},
+		{
+			"material": "reflecting",
+			"position": {
+				"x": 2,
+				"z": 3
+			}
+		},
+		{
+			"material": "reflecting",
+			"position": {
+				"x": 2,
+				"z": 4
+			}
+		},
+		{
+			"material": "reflecting",
+			"position": {
+				"x": 2,
+				"z": 6
+			}
+		},
+		{
+			"material": "reflecting",
+			"position": {
+				"x": 2,
+				"z": 7
+			}
+		},
+		{
+			"material": "reflecting",
+			"position": {
+				"x": 2,
+				"z": 8
+			}
+		},
+		{
+			"material": "reflecting",
+			"position": {
+				"x": 2,
+				"z": 9
+			}
+		},
+		{
+			"material": "reflecting",
+			"position": {
+				"x": 2,
+				"z": 10
+			}
+		},
+		{
+			"material": "reflecting",
+			"position": {
+				"x": 2,
+				"z": 12
+			}
+		},
+		{
+			"material": "reflecting",
+			"position": {
+				"x": 3,
+				"z": 0
+			}
+		},
+		{
+			"material": "reflecting",
+			"position": {
+				"x": 3,
+				"z": 4
+			}
+		},
+		{
+			"material": "reflecting",
+			"position": {
+				"x": 3,
+				"z": 6
+			}
+		},
+		{
+			"material": "reflecting",
+			"position": {
+				"x": 3,
+				"z": 12
+			}
+		},
+		{
+			"material": "reflecting",
+			"position": {
+				"x": 4,
+				"z": 0
+			}
+		},
+		{
+			"material": "reflecting",
+			"position": {
+				"x": 4,
 				"z": 1
 			}
 		},
 		{
 			"material": "reflecting",
 			"position": {
-				"x": 2,
+				"x": 4,
 				"z": 2
 			}
 		},
 		{
 			"material": "reflecting",
 			"position": {
-				"x": 2,
+				"x": 4,
+				"z": 4
+			}
+		},
+		{
+			"material": "reflecting",
+			"position": {
+				"x": 4,
+				"z": 5
+			}
+		},
+		{
+			"material": "reflecting",
+			"position": {
+				"x": 4,
+				"z": 6
+			}
+		},
+		{
+			"material": "reflecting",
+			"position": {
+				"x": 4,
+				"z": 8
+			}
+		},
+		{
+			"material": "reflecting",
+			"position": {
+				"x": 4,
+				"z": 9
+			}
+		},
+		{
+			"material": "reflecting",
+			"position": {
+				"x": 4,
+				"z": 10
+			}
+		},
+		{
+			"material": "reflecting",
+			"position": {
+				"x": 4,
+				"z": 12
+			}
+		},
+		{
+			"material": "reflecting",
+			"position": {
+				"x": 5,
+				"z": 0
+			}
+		},
+		{
+			"material": "reflecting",
+			"position": {
+				"x": 5,
+				"z": 4
+			}
+		},
+		{
+			"material": "reflecting",
+			"position": {
+				"x": 5,
+				"z": 8
+			}
+		},
+		{
+			"material": "reflecting",
+			"position": {
+				"x": 5,
+				"z": 12
+			}
+		},
+		{
+			"material": "reflecting",
+			"position": {
+				"x": 6,
+				"z": 0
+			}
+		},
+		{
+			"material": "reflecting",
+			"position": {
+				"x": 6,
+				"z": 2
+			}
+		},
+		{
+			"material": "reflecting",
+			"position": {
+				"x": 6,
 				"z": 3
-			}
-		},
-		{
-			"material": "reflecting",
-			"position": {
-				"x": 2,
-				"z": 4
-			}
-		},
-		{
-			"material": "reflecting",
-			"position": {
-				"x": 2,
-				"z": 5
-			}
-		},
-		{
-			"material": "reflecting",
-			"position": {
-				"x": 2,
-				"z": 6
-			}
-		},
-		{
-			"material": "reflecting",
-			"position": {
-				"x": 2,
-				"z": 8
-			}
-		},
-		{
-			"material": "reflecting",
-			"position": {
-				"x": 2,
-				"z": 10
-			}
-		},
-		{
-			"material": "reflecting",
-			"position": {
-				"x": 2,
-				"z": 12
-			}
-		},
-		{
-			"material": "reflecting",
-			"position": {
-				"x": 3,
-				"z": 0
-			}
-		},
-		{
-			"material": "reflecting",
-			"position": {
-				"x": 3,
-				"z": 6
-			}
-		},
-		{
-			"material": "reflecting",
-			"position": {
-				"x": 3,
-				"z": 8
-			}
-		},
-		{
-			"material": "reflecting",
-			"position": {
-				"x": 3,
-				"z": 10
-			}
-		},
-		{
-			"material": "reflecting",
-			"position": {
-				"x": 3,
-				"z": 12
-			}
-		},
-		{
-			"material": "reflecting",
-			"position": {
-				"x": 4,
-				"z": 0
-			}
-		},
-		{
-			"material": "reflecting",
-			"position": {
-				"x": 4,
-				"z": 2
-			}
-		},
-		{
-			"material": "reflecting",
-			"position": {
-				"x": 4,
-				"z": 4
-			}
-		},
-		{
-			"material": "reflecting",
-			"position": {
-				"x": 4,
-				"z": 5
-			}
-		},
-		{
-			"material": "reflecting",
-			"position": {
-				"x": 4,
-				"z": 6
-			}
-		},
-		{
-			"material": "reflecting",
-			"position": {
-				"x": 4,
-				"z": 8
-			}
-		},
-		{
-			"material": "reflecting",
-			"position": {
-				"x": 4,
-				"z": 10
-			}
-		},
-		{
-			"material": "reflecting",
-			"position": {
-				"x": 4,
-				"z": 12
-			}
-		},
-		{
-			"material": "reflecting",
-			"position": {
-				"x": 5,
-				"z": 0
-			}
-		},
-		{
-			"material": "reflecting",
-			"position": {
-				"x": 5,
-				"z": 2
-			}
-		},
-		{
-			"material": "reflecting",
-			"position": {
-				"x": 5,
-				"z": 4
-			}
-		},
-		{
-			"material": "reflecting",
-			"position": {
-				"x": 5,
-				"z": 8
-			}
-		},
-		{
-			"material": "reflecting",
-			"position": {
-				"x": 5,
-				"z": 10
-			}
-		},
-		{
-			"material": "reflecting",
-			"position": {
-				"x": 5,
-				"z": 12
-			}
-		},
-		{
-			"material": "reflecting",
-			"position": {
-				"x": 6,
-				"z": 0
-			}
-		},
-		{
-			"material": "reflecting",
-			"position": {
-				"x": 6,
-				"z": 2
 			}
 		},
 		{
@@ -372,6 +478,13 @@
 			"material": "reflecting",
 			"position": {
 				"x": 6,
+				"z": 11
+			}
+		},
+		{
+			"material": "reflecting",
+			"position": {
+				"x": 6,
 				"z": 12
 			}
 		},
@@ -386,14 +499,7 @@
 			"material": "reflecting",
 			"position": {
 				"x": 7,
-				"z": 2
-			}
-		},
-		{
-			"material": "reflecting",
-			"position": {
-				"x": 7,
-				"z": 6
+				"z": 4
 			}
 		},
 		{
@@ -414,14 +520,14 @@
 			"material": "reflecting",
 			"position": {
 				"x": 8,
-				"z": 2
+				"z": 1
 			}
 		},
 		{
 			"material": "reflecting",
 			"position": {
 				"x": 8,
-				"z": 3
+				"z": 2
 			}
 		},
 		{
@@ -443,6 +549,13 @@
 			"position": {
 				"x": 8,
 				"z": 6
+			}
+		},
+		{
+			"material": "reflecting",
+			"position": {
+				"x": 8,
+				"z": 7
 			}
 		},
 		{
@@ -491,13 +604,6 @@
 			"material": "reflecting",
 			"position": {
 				"x": 9,
-				"z": 6
-			}
-		},
-		{
-			"material": "reflecting",
-			"position": {
-				"x": 9,
 				"z": 10
 			}
 		},
@@ -526,7 +632,21 @@
 			"material": "reflecting",
 			"position": {
 				"x": 10,
+				"z": 3
+			}
+		},
+		{
+			"material": "reflecting",
+			"position": {
+				"x": 10,
 				"z": 4
+			}
+		},
+		{
+			"material": "reflecting",
+			"position": {
+				"x": 10,
+				"z": 5
 			}
 		},
 		{
@@ -569,20 +689,6 @@
 			"position": {
 				"x": 11,
 				"z": 0
-			}
-		},
-		{
-			"material": "reflecting",
-			"position": {
-				"x": 11,
-				"z": 4
-			}
-		},
-		{
-			"material": "reflecting",
-			"position": {
-				"x": 11,
-				"z": 10
 			}
 		},
 		{

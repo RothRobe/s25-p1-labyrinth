@@ -1,6 +1,7 @@
 [gd_scene load_steps=214 format=3 uid="uid://bp684kux210v8"]
 
 [ext_resource type="Script" uid="uid://c88gfw3o7tucy" path="res://player_movement.gd" id="1_rs4gn"]
+[ext_resource type="Script" uid="uid://dgfwxxviomrib" path="res://generate_labyrinth.gd" id="1_y7ki6"]
 [ext_resource type="VoxelGIData" uid="uid://g1s2rhrflxe7" path="res://labyrinth.VoxelGI_data.res" id="2_atngq"]
 [ext_resource type="PackedScene" uid="uid://463ym1bk0o1n" path="res://lamp.tscn" id="2_t6uu3"]
 [ext_resource type="Material" uid="uid://b4ux6rdkqm0og" path="res://reflecting_material.tres" id="4_atngq"]
@@ -18,16 +19,13 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_y7ki6"]
 size = Vector3(0.1, 1, 1)
 
-[sub_resource type="BoxMesh" id="BoxMesh_pfw25"]
-size = Vector3(11, 1, 11)
+[sub_resource type="PlaneMesh" id="PlaneMesh_bnj4v"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bnj4v"]
 albedo_color = Color(0.0196078, 0.0196078, 0.0196078, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_laq75"]
 size = Vector3(11, 1, 11)
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_bnj4v"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_5345t"]
 sky_top_color = Color(0.255884, 0.284377, 0.733347, 1)
@@ -635,6 +633,7 @@ size = Vector3(1, 3, 1)
 size = Vector3(1, 3, 1)
 
 [node name="Root" type="Node3D"]
+script = ExtResource("1_y7ki6")
 
 [node name="Player" type="CharacterBody3D" parent="."]
 transform = Transform3D(0.00914534, 0, -0.999958, 0, 1, 0, 0.999958, 0, 0.00914534, -9.06043, 1.02077, -3.2742)
@@ -653,50 +652,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 gi_mode = 2
 mesh = SubResource("CapsuleMesh_5345t")
 
-[node name="OmniLight3D3" type="OmniLight3D" parent="."]
-transform = Transform3D(-1, 0, -2.42144e-08, 0, 1, 0, 2.42144e-08, 0, -1, -1.926, 2.25, -1.659)
-light_energy = 3.0
-light_specular = 0.0
-light_bake_mode = 1
-shadow_enabled = true
-omni_range = 10.0
-
-[node name="lamp" parent="OmniLight3D3" instance=ExtResource("2_t6uu3")]
-transform = Transform3D(0.192358, 0, 0.0547583, 0, 0.2, 0, -0.0547583, 0, 0.192358, 0.18786, 0.155318, 0.00684142)
-
-[node name="OmniLight3D4" type="OmniLight3D" parent="."]
-transform = Transform3D(-1, 0, -2.38498e-08, 0, 1, 0, 2.38498e-08, 0, -1, -3.924, 2.25, 0.871)
-light_energy = 3.0
-light_specular = 0.0
-light_bake_mode = 1
-shadow_enabled = true
-omni_range = 10.0
-
-[node name="lamp" parent="OmniLight3D4" instance=ExtResource("2_t6uu3")]
-transform = Transform3D(0.192358, 0, 0.0547583, 0, 0.2, 0, -0.0547583, 0, 0.192358, 0.18786, 0.155318, 0.00684142)
-
-[node name="OmniLight3D2" type="OmniLight3D" parent="."]
-transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, 2.162, 2.25, 3.929)
-light_energy = 3.0
-light_specular = 0.0
-light_bake_mode = 1
-shadow_enabled = true
-omni_range = 10.0
-
-[node name="lamp" parent="OmniLight3D2" instance=ExtResource("2_t6uu3")]
-transform = Transform3D(0.192358, 0, 0.0547583, 0, 0.2, 0, -0.0547583, 0, 0.192358, 0.18786, 0.155318, 0.00684142)
-
-[node name="OmniLight3D5" type="OmniLight3D" parent="."]
-transform = Transform3D(-1, 0, -2.38498e-08, 0, 1, 0, 2.38498e-08, 0, -1, 1.14476, 2.25, -1.02251)
-light_energy = 3.0
-light_specular = 0.0
-light_bake_mode = 1
-shadow_enabled = true
-omni_range = 10.0
-
-[node name="lamp" parent="OmniLight3D5" instance=ExtResource("2_t6uu3")]
-transform = Transform3D(0.192358, 0, 0.0547583, 0, 0.2, 0, -0.0547583, 0, 0.192358, 0.18786, 0.155318, 0.00684142)
-
 [node name="Mirror" type="StaticBody3D" parent="."]
 transform = Transform3D(0.686326, 0, -0.727294, 0, 1, 0, 0.727294, 0, 0.686326, 4.23432, 1.80545, 4.1972)
 visible = false
@@ -709,18 +664,6 @@ skeleton = NodePath("")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Mirror"]
 shape = SubResource("BoxShape3D_y7ki6")
-
-[node name="Roof" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.5, 0)
-visible = false
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Roof"]
-material_override = ExtResource("4_atngq")
-mesh = SubResource("BoxMesh_pfw25")
-surface_material_override/0 = SubResource("StandardMaterial3D_bnj4v")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Roof"]
-shape = SubResource("BoxShape3D_laq75")
 
 [node name="Ground" type="StaticBody3D" parent="."]
 transform = Transform3D(30, 0, 0, 0, 30, 0, 0, 0, 30, 0, 0, 0)
@@ -768,959 +711,1037 @@ metallic_material = ExtResource("7_eqyd5")
 [node name="Wall-(0_0, 1_5, 0_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 
-[node name="@MeshInstance3D@22651" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(0_0, 1_5, 0_0)"]
+[node name="@MeshInstance3D@31211" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(0_0, 1_5, 0_0)"]
 material_override = ExtResource("4_atngq")
 mesh = SubResource("BoxMesh_y7ki6")
 
-[node name="@CollisionShape3D@22652" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(0_0, 1_5, 0_0)"]
+[node name="@CollisionShape3D@31212" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(0_0, 1_5, 0_0)"]
 shape = SubResource("BoxShape3D_pfw25")
 
 [node name="Wall-(0_0, 1_5, 2_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 2)
 
-[node name="@MeshInstance3D@22653" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(0_0, 1_5, 2_0)"]
+[node name="@MeshInstance3D@31213" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(0_0, 1_5, 2_0)"]
 material_override = ExtResource("4_atngq")
 mesh = SubResource("BoxMesh_e0a7f")
 
-[node name="@CollisionShape3D@22654" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(0_0, 1_5, 2_0)"]
+[node name="@CollisionShape3D@31214" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(0_0, 1_5, 2_0)"]
 shape = SubResource("BoxShape3D_foa24")
 
 [node name="Wall-(0_0, 1_5, 3_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 3)
 
-[node name="@MeshInstance3D@22655" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(0_0, 1_5, 3_0)"]
+[node name="@MeshInstance3D@31215" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(0_0, 1_5, 3_0)"]
 material_override = ExtResource("4_atngq")
 mesh = SubResource("BoxMesh_03xne")
 
-[node name="@CollisionShape3D@22656" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(0_0, 1_5, 3_0)"]
+[node name="@CollisionShape3D@31216" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(0_0, 1_5, 3_0)"]
 shape = SubResource("BoxShape3D_pqkvh")
 
 [node name="Wall-(0_0, 1_5, 4_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 4)
 
-[node name="@MeshInstance3D@22657" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(0_0, 1_5, 4_0)"]
+[node name="@MeshInstance3D@31217" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(0_0, 1_5, 4_0)"]
 material_override = ExtResource("4_atngq")
 mesh = SubResource("BoxMesh_qv0r5")
 
-[node name="@CollisionShape3D@22658" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(0_0, 1_5, 4_0)"]
+[node name="@CollisionShape3D@31218" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(0_0, 1_5, 4_0)"]
 shape = SubResource("BoxShape3D_oe8pk")
 
 [node name="Wall-(0_0, 1_5, 5_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 5)
 
-[node name="@MeshInstance3D@22659" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(0_0, 1_5, 5_0)"]
+[node name="@MeshInstance3D@31219" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(0_0, 1_5, 5_0)"]
 material_override = ExtResource("4_atngq")
 mesh = SubResource("BoxMesh_dk1f2")
 
-[node name="@CollisionShape3D@22660" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(0_0, 1_5, 5_0)"]
+[node name="@CollisionShape3D@31220" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(0_0, 1_5, 5_0)"]
 shape = SubResource("BoxShape3D_fpjvg")
 
 [node name="Wall-(0_0, 1_5, 6_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 6)
 
-[node name="@MeshInstance3D@22661" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(0_0, 1_5, 6_0)"]
+[node name="@MeshInstance3D@31221" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(0_0, 1_5, 6_0)"]
 material_override = ExtResource("4_atngq")
 mesh = SubResource("BoxMesh_w1xlq")
 
-[node name="@CollisionShape3D@22662" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(0_0, 1_5, 6_0)"]
+[node name="@CollisionShape3D@31222" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(0_0, 1_5, 6_0)"]
 shape = SubResource("BoxShape3D_ttfwi")
 
 [node name="Wall-(0_0, 1_5, 7_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 7)
 
-[node name="@MeshInstance3D@22663" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(0_0, 1_5, 7_0)"]
+[node name="@MeshInstance3D@31223" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(0_0, 1_5, 7_0)"]
 material_override = ExtResource("4_atngq")
 mesh = SubResource("BoxMesh_q5mjj")
 
-[node name="@CollisionShape3D@22664" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(0_0, 1_5, 7_0)"]
+[node name="@CollisionShape3D@31224" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(0_0, 1_5, 7_0)"]
 shape = SubResource("BoxShape3D_xkeag")
 
 [node name="Wall-(0_0, 1_5, 8_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 8)
 
-[node name="@MeshInstance3D@22665" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(0_0, 1_5, 8_0)"]
+[node name="@MeshInstance3D@31225" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(0_0, 1_5, 8_0)"]
 material_override = ExtResource("4_atngq")
 mesh = SubResource("BoxMesh_q53kf")
 
-[node name="@CollisionShape3D@22666" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(0_0, 1_5, 8_0)"]
+[node name="@CollisionShape3D@31226" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(0_0, 1_5, 8_0)"]
 shape = SubResource("BoxShape3D_lo2bf")
 
 [node name="Wall-(0_0, 1_5, 9_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 9)
 
-[node name="@MeshInstance3D@22667" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(0_0, 1_5, 9_0)"]
+[node name="@MeshInstance3D@31227" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(0_0, 1_5, 9_0)"]
 material_override = ExtResource("4_atngq")
 mesh = SubResource("BoxMesh_6l4q7")
 
-[node name="@CollisionShape3D@22668" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(0_0, 1_5, 9_0)"]
+[node name="@CollisionShape3D@31228" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(0_0, 1_5, 9_0)"]
 shape = SubResource("BoxShape3D_qny1v")
 
 [node name="Wall-(0_0, 1_5, 10_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 10)
 
-[node name="@MeshInstance3D@22669" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(0_0, 1_5, 10_0)"]
+[node name="@MeshInstance3D@31229" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(0_0, 1_5, 10_0)"]
 material_override = ExtResource("4_atngq")
 mesh = SubResource("BoxMesh_88xr1")
 
-[node name="@CollisionShape3D@22670" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(0_0, 1_5, 10_0)"]
+[node name="@CollisionShape3D@31230" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(0_0, 1_5, 10_0)"]
 shape = SubResource("BoxShape3D_4gdtm")
 
 [node name="Wall-(0_0, 1_5, 11_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 11)
 
-[node name="@MeshInstance3D@22671" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(0_0, 1_5, 11_0)"]
+[node name="@MeshInstance3D@31231" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(0_0, 1_5, 11_0)"]
 material_override = ExtResource("4_atngq")
 mesh = SubResource("BoxMesh_8dqdu")
 
-[node name="@CollisionShape3D@22672" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(0_0, 1_5, 11_0)"]
+[node name="@CollisionShape3D@31232" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(0_0, 1_5, 11_0)"]
 shape = SubResource("BoxShape3D_qaflb")
 
 [node name="Wall-(0_0, 1_5, 12_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 12)
 
-[node name="@MeshInstance3D@22673" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(0_0, 1_5, 12_0)"]
+[node name="@MeshInstance3D@31233" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(0_0, 1_5, 12_0)"]
 material_override = ExtResource("4_atngq")
 mesh = SubResource("BoxMesh_8leee")
 
-[node name="@CollisionShape3D@22674" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(0_0, 1_5, 12_0)"]
+[node name="@CollisionShape3D@31234" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(0_0, 1_5, 12_0)"]
 shape = SubResource("BoxShape3D_xbrq0")
 
 [node name="Wall-(1_0, 1_5, 0_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1.5, 0)
 
-[node name="@MeshInstance3D@22675" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(1_0, 1_5, 0_0)"]
+[node name="@MeshInstance3D@31235" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(1_0, 1_5, 0_0)"]
 material_override = ExtResource("4_atngq")
 mesh = SubResource("BoxMesh_ccpyb")
 
-[node name="@CollisionShape3D@22676" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(1_0, 1_5, 0_0)"]
+[node name="@CollisionShape3D@31236" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(1_0, 1_5, 0_0)"]
 shape = SubResource("BoxShape3D_j05tp")
 
-[node name="Wall-(1_0, 1_5, 8_0)" type="StaticBody3D" parent="LabyrinthWalls"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1.5, 8)
+[node name="Wall-(1_0, 1_5, 2_0)" type="StaticBody3D" parent="LabyrinthWalls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1.5, 2)
 
-[node name="@MeshInstance3D@22677" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(1_0, 1_5, 8_0)"]
+[node name="@MeshInstance3D@31237" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(1_0, 1_5, 2_0)"]
 material_override = ExtResource("4_atngq")
 mesh = SubResource("BoxMesh_pc72q")
 
-[node name="@CollisionShape3D@22678" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(1_0, 1_5, 8_0)"]
+[node name="@CollisionShape3D@31238" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(1_0, 1_5, 2_0)"]
 shape = SubResource("BoxShape3D_5hdh1")
 
 [node name="Wall-(1_0, 1_5, 12_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1.5, 12)
 
-[node name="@MeshInstance3D@22679" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(1_0, 1_5, 12_0)"]
+[node name="@MeshInstance3D@31239" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(1_0, 1_5, 12_0)"]
 material_override = ExtResource("4_atngq")
 mesh = SubResource("BoxMesh_6kmby")
 
-[node name="@CollisionShape3D@22680" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(1_0, 1_5, 12_0)"]
+[node name="@CollisionShape3D@31240" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(1_0, 1_5, 12_0)"]
 shape = SubResource("BoxShape3D_ox0ex")
 
 [node name="Wall-(2_0, 1_5, 0_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1.5, 0)
 
-[node name="@MeshInstance3D@22681" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(2_0, 1_5, 0_0)"]
+[node name="@MeshInstance3D@31241" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(2_0, 1_5, 0_0)"]
 material_override = ExtResource("4_atngq")
 mesh = SubResource("BoxMesh_14dar")
 
-[node name="@CollisionShape3D@22682" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(2_0, 1_5, 0_0)"]
+[node name="@CollisionShape3D@31242" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(2_0, 1_5, 0_0)"]
 shape = SubResource("BoxShape3D_goolc")
-
-[node name="Wall-(2_0, 1_5, 1_0)" type="StaticBody3D" parent="LabyrinthWalls"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1.5, 1)
-
-[node name="@MeshInstance3D@22683" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(2_0, 1_5, 1_0)"]
-material_override = ExtResource("4_atngq")
-mesh = SubResource("BoxMesh_ydrj3")
-
-[node name="@CollisionShape3D@22684" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(2_0, 1_5, 1_0)"]
-shape = SubResource("BoxShape3D_v4khy")
 
 [node name="Wall-(2_0, 1_5, 2_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1.5, 2)
 
-[node name="@MeshInstance3D@22685" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(2_0, 1_5, 2_0)"]
+[node name="@MeshInstance3D@31243" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(2_0, 1_5, 2_0)"]
 material_override = ExtResource("4_atngq")
-mesh = SubResource("BoxMesh_t0u5s")
+mesh = SubResource("BoxMesh_ydrj3")
 
-[node name="@CollisionShape3D@22686" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(2_0, 1_5, 2_0)"]
-shape = SubResource("BoxShape3D_mqqv3")
+[node name="@CollisionShape3D@31244" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(2_0, 1_5, 2_0)"]
+shape = SubResource("BoxShape3D_v4khy")
 
 [node name="Wall-(2_0, 1_5, 3_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1.5, 3)
 
-[node name="@MeshInstance3D@22687" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(2_0, 1_5, 3_0)"]
+[node name="@MeshInstance3D@31245" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(2_0, 1_5, 3_0)"]
 material_override = ExtResource("4_atngq")
-mesh = SubResource("BoxMesh_jib8t")
+mesh = SubResource("BoxMesh_t0u5s")
 
-[node name="@CollisionShape3D@22688" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(2_0, 1_5, 3_0)"]
-shape = SubResource("BoxShape3D_v6ium")
+[node name="@CollisionShape3D@31246" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(2_0, 1_5, 3_0)"]
+shape = SubResource("BoxShape3D_mqqv3")
 
 [node name="Wall-(2_0, 1_5, 4_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1.5, 4)
 
-[node name="@MeshInstance3D@22689" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(2_0, 1_5, 4_0)"]
+[node name="@MeshInstance3D@31247" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(2_0, 1_5, 4_0)"]
 material_override = ExtResource("4_atngq")
-mesh = SubResource("BoxMesh_85cpr")
+mesh = SubResource("BoxMesh_jib8t")
 
-[node name="@CollisionShape3D@22690" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(2_0, 1_5, 4_0)"]
-shape = SubResource("BoxShape3D_pi8v2")
-
-[node name="Wall-(2_0, 1_5, 5_0)" type="StaticBody3D" parent="LabyrinthWalls"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1.5, 5)
-
-[node name="@MeshInstance3D@22691" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(2_0, 1_5, 5_0)"]
-material_override = ExtResource("4_atngq")
-mesh = SubResource("BoxMesh_kbsaq")
-
-[node name="@CollisionShape3D@22692" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(2_0, 1_5, 5_0)"]
-shape = SubResource("BoxShape3D_ujn1r")
+[node name="@CollisionShape3D@31248" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(2_0, 1_5, 4_0)"]
+shape = SubResource("BoxShape3D_v6ium")
 
 [node name="Wall-(2_0, 1_5, 6_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1.5, 6)
 
-[node name="@MeshInstance3D@22693" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(2_0, 1_5, 6_0)"]
+[node name="@MeshInstance3D@31249" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(2_0, 1_5, 6_0)"]
 material_override = ExtResource("4_atngq")
-mesh = SubResource("BoxMesh_uujfs")
+mesh = SubResource("BoxMesh_85cpr")
 
-[node name="@CollisionShape3D@22694" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(2_0, 1_5, 6_0)"]
-shape = SubResource("BoxShape3D_2nf8d")
+[node name="@CollisionShape3D@31250" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(2_0, 1_5, 6_0)"]
+shape = SubResource("BoxShape3D_pi8v2")
+
+[node name="Wall-(2_0, 1_5, 7_0)" type="StaticBody3D" parent="LabyrinthWalls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1.5, 7)
+
+[node name="@MeshInstance3D@31251" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(2_0, 1_5, 7_0)"]
+material_override = ExtResource("4_atngq")
+mesh = SubResource("BoxMesh_kbsaq")
+
+[node name="@CollisionShape3D@31252" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(2_0, 1_5, 7_0)"]
+shape = SubResource("BoxShape3D_ujn1r")
 
 [node name="Wall-(2_0, 1_5, 8_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1.5, 8)
 
-[node name="@MeshInstance3D@22695" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(2_0, 1_5, 8_0)"]
+[node name="@MeshInstance3D@31253" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(2_0, 1_5, 8_0)"]
+material_override = ExtResource("4_atngq")
+mesh = SubResource("BoxMesh_uujfs")
+
+[node name="@CollisionShape3D@31254" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(2_0, 1_5, 8_0)"]
+shape = SubResource("BoxShape3D_2nf8d")
+
+[node name="Wall-(2_0, 1_5, 9_0)" type="StaticBody3D" parent="LabyrinthWalls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1.5, 9)
+
+[node name="@MeshInstance3D@31255" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(2_0, 1_5, 9_0)"]
 material_override = ExtResource("4_atngq")
 mesh = SubResource("BoxMesh_r8c80")
 
-[node name="@CollisionShape3D@22696" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(2_0, 1_5, 8_0)"]
+[node name="@CollisionShape3D@31256" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(2_0, 1_5, 9_0)"]
 shape = SubResource("BoxShape3D_buexw")
 
 [node name="Wall-(2_0, 1_5, 10_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1.5, 10)
 
-[node name="@MeshInstance3D@22697" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(2_0, 1_5, 10_0)"]
+[node name="@MeshInstance3D@31257" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(2_0, 1_5, 10_0)"]
 material_override = ExtResource("4_atngq")
 mesh = SubResource("BoxMesh_eigqa")
 
-[node name="@CollisionShape3D@22698" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(2_0, 1_5, 10_0)"]
+[node name="@CollisionShape3D@31258" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(2_0, 1_5, 10_0)"]
 shape = SubResource("BoxShape3D_uh5ep")
 
 [node name="Wall-(2_0, 1_5, 12_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1.5, 12)
 
-[node name="@MeshInstance3D@22699" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(2_0, 1_5, 12_0)"]
+[node name="@MeshInstance3D@31259" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(2_0, 1_5, 12_0)"]
 material_override = ExtResource("4_atngq")
 mesh = SubResource("BoxMesh_pibx5")
 
-[node name="@CollisionShape3D@22700" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(2_0, 1_5, 12_0)"]
+[node name="@CollisionShape3D@31260" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(2_0, 1_5, 12_0)"]
 shape = SubResource("BoxShape3D_tgwq7")
 
 [node name="Wall-(3_0, 1_5, 0_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1.5, 0)
 
-[node name="@MeshInstance3D@22701" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(3_0, 1_5, 0_0)"]
+[node name="@MeshInstance3D@31261" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(3_0, 1_5, 0_0)"]
 material_override = ExtResource("4_atngq")
 mesh = SubResource("BoxMesh_qlq3h")
 
-[node name="@CollisionShape3D@22702" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(3_0, 1_5, 0_0)"]
+[node name="@CollisionShape3D@31262" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(3_0, 1_5, 0_0)"]
 shape = SubResource("BoxShape3D_8daha")
+
+[node name="Wall-(3_0, 1_5, 4_0)" type="StaticBody3D" parent="LabyrinthWalls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1.5, 4)
+
+[node name="@MeshInstance3D@31263" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(3_0, 1_5, 4_0)"]
+material_override = ExtResource("4_atngq")
+mesh = SubResource("BoxMesh_jsipn")
+
+[node name="@CollisionShape3D@31264" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(3_0, 1_5, 4_0)"]
+shape = SubResource("BoxShape3D_66v1c")
 
 [node name="Wall-(3_0, 1_5, 6_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1.5, 6)
 
-[node name="@MeshInstance3D@22703" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(3_0, 1_5, 6_0)"]
-material_override = ExtResource("4_atngq")
-mesh = SubResource("BoxMesh_jsipn")
-
-[node name="@CollisionShape3D@22704" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(3_0, 1_5, 6_0)"]
-shape = SubResource("BoxShape3D_66v1c")
-
-[node name="Wall-(3_0, 1_5, 8_0)" type="StaticBody3D" parent="LabyrinthWalls"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1.5, 8)
-
-[node name="@MeshInstance3D@22705" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(3_0, 1_5, 8_0)"]
+[node name="@MeshInstance3D@31265" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(3_0, 1_5, 6_0)"]
 material_override = ExtResource("4_atngq")
 mesh = SubResource("BoxMesh_g14yd")
 
-[node name="@CollisionShape3D@22706" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(3_0, 1_5, 8_0)"]
+[node name="@CollisionShape3D@31266" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(3_0, 1_5, 6_0)"]
 shape = SubResource("BoxShape3D_vb3uv")
-
-[node name="Wall-(3_0, 1_5, 10_0)" type="StaticBody3D" parent="LabyrinthWalls"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1.5, 10)
-
-[node name="@MeshInstance3D@22707" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(3_0, 1_5, 10_0)"]
-material_override = ExtResource("4_atngq")
-mesh = SubResource("BoxMesh_ix62f")
-
-[node name="@CollisionShape3D@22708" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(3_0, 1_5, 10_0)"]
-shape = SubResource("BoxShape3D_v2k0w")
 
 [node name="Wall-(3_0, 1_5, 12_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1.5, 12)
 
-[node name="@MeshInstance3D@22709" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(3_0, 1_5, 12_0)"]
+[node name="@MeshInstance3D@31267" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(3_0, 1_5, 12_0)"]
 material_override = ExtResource("4_atngq")
-mesh = SubResource("BoxMesh_r5wf1")
+mesh = SubResource("BoxMesh_ix62f")
 
-[node name="@CollisionShape3D@22710" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(3_0, 1_5, 12_0)"]
-shape = SubResource("BoxShape3D_5bfvh")
+[node name="@CollisionShape3D@31268" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(3_0, 1_5, 12_0)"]
+shape = SubResource("BoxShape3D_v2k0w")
 
 [node name="Wall-(4_0, 1_5, 0_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1.5, 0)
 
-[node name="@MeshInstance3D@22711" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(4_0, 1_5, 0_0)"]
+[node name="@MeshInstance3D@31269" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(4_0, 1_5, 0_0)"]
+material_override = ExtResource("4_atngq")
+mesh = SubResource("BoxMesh_r5wf1")
+
+[node name="@CollisionShape3D@31270" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(4_0, 1_5, 0_0)"]
+shape = SubResource("BoxShape3D_5bfvh")
+
+[node name="Wall-(4_0, 1_5, 1_0)" type="StaticBody3D" parent="LabyrinthWalls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1.5, 1)
+
+[node name="@MeshInstance3D@31271" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(4_0, 1_5, 1_0)"]
 material_override = ExtResource("4_atngq")
 mesh = SubResource("BoxMesh_fshm8")
 
-[node name="@CollisionShape3D@22712" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(4_0, 1_5, 0_0)"]
+[node name="@CollisionShape3D@31272" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(4_0, 1_5, 1_0)"]
 shape = SubResource("BoxShape3D_boxk3")
 
 [node name="Wall-(4_0, 1_5, 2_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1.5, 2)
 
-[node name="@MeshInstance3D@22713" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(4_0, 1_5, 2_0)"]
+[node name="@MeshInstance3D@31273" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(4_0, 1_5, 2_0)"]
 material_override = ExtResource("4_atngq")
 mesh = SubResource("BoxMesh_llyi0")
 
-[node name="@CollisionShape3D@22714" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(4_0, 1_5, 2_0)"]
+[node name="@CollisionShape3D@31274" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(4_0, 1_5, 2_0)"]
 shape = SubResource("BoxShape3D_l8p03")
 
 [node name="Wall-(4_0, 1_5, 4_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1.5, 4)
 
-[node name="@MeshInstance3D@22715" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(4_0, 1_5, 4_0)"]
+[node name="@MeshInstance3D@31275" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(4_0, 1_5, 4_0)"]
 material_override = ExtResource("4_atngq")
 mesh = SubResource("BoxMesh_l8gpw")
 
-[node name="@CollisionShape3D@22716" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(4_0, 1_5, 4_0)"]
+[node name="@CollisionShape3D@31276" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(4_0, 1_5, 4_0)"]
 shape = SubResource("BoxShape3D_ramq3")
 
 [node name="Wall-(4_0, 1_5, 5_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1.5, 5)
 
-[node name="@MeshInstance3D@22717" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(4_0, 1_5, 5_0)"]
+[node name="@MeshInstance3D@31277" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(4_0, 1_5, 5_0)"]
 material_override = ExtResource("4_atngq")
 mesh = SubResource("BoxMesh_mfiao")
 
-[node name="@CollisionShape3D@22718" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(4_0, 1_5, 5_0)"]
+[node name="@CollisionShape3D@31278" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(4_0, 1_5, 5_0)"]
 shape = SubResource("BoxShape3D_wy55g")
 
 [node name="Wall-(4_0, 1_5, 6_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1.5, 6)
 
-[node name="@MeshInstance3D@22719" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(4_0, 1_5, 6_0)"]
+[node name="@MeshInstance3D@31279" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(4_0, 1_5, 6_0)"]
 material_override = ExtResource("4_atngq")
 mesh = SubResource("BoxMesh_2pmkx")
 
-[node name="@CollisionShape3D@22720" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(4_0, 1_5, 6_0)"]
+[node name="@CollisionShape3D@31280" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(4_0, 1_5, 6_0)"]
 shape = SubResource("BoxShape3D_8vwvy")
 
 [node name="Wall-(4_0, 1_5, 8_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1.5, 8)
 
-[node name="@MeshInstance3D@22721" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(4_0, 1_5, 8_0)"]
+[node name="@MeshInstance3D@31281" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(4_0, 1_5, 8_0)"]
 material_override = ExtResource("4_atngq")
 mesh = SubResource("BoxMesh_wr5ac")
 
-[node name="@CollisionShape3D@22722" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(4_0, 1_5, 8_0)"]
+[node name="@CollisionShape3D@31282" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(4_0, 1_5, 8_0)"]
 shape = SubResource("BoxShape3D_3x3dj")
+
+[node name="Wall-(4_0, 1_5, 9_0)" type="StaticBody3D" parent="LabyrinthWalls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1.5, 9)
+
+[node name="@MeshInstance3D@31283" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(4_0, 1_5, 9_0)"]
+material_override = ExtResource("4_atngq")
+mesh = SubResource("BoxMesh_e18bp")
+
+[node name="@CollisionShape3D@31284" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(4_0, 1_5, 9_0)"]
+shape = SubResource("BoxShape3D_fphh5")
 
 [node name="Wall-(4_0, 1_5, 10_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1.5, 10)
 
-[node name="@MeshInstance3D@22723" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(4_0, 1_5, 10_0)"]
+[node name="@MeshInstance3D@31285" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(4_0, 1_5, 10_0)"]
 material_override = ExtResource("4_atngq")
-mesh = SubResource("BoxMesh_e18bp")
+mesh = SubResource("BoxMesh_og6mv")
 
-[node name="@CollisionShape3D@22724" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(4_0, 1_5, 10_0)"]
-shape = SubResource("BoxShape3D_fphh5")
+[node name="@CollisionShape3D@31286" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(4_0, 1_5, 10_0)"]
+shape = SubResource("BoxShape3D_fjuun")
 
 [node name="Wall-(4_0, 1_5, 12_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1.5, 12)
 
-[node name="@MeshInstance3D@22725" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(4_0, 1_5, 12_0)"]
+[node name="@MeshInstance3D@31287" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(4_0, 1_5, 12_0)"]
 material_override = ExtResource("4_atngq")
-mesh = SubResource("BoxMesh_og6mv")
+mesh = SubResource("BoxMesh_1u1pq")
 
-[node name="@CollisionShape3D@22726" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(4_0, 1_5, 12_0)"]
-shape = SubResource("BoxShape3D_fjuun")
+[node name="@CollisionShape3D@31288" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(4_0, 1_5, 12_0)"]
+shape = SubResource("BoxShape3D_towfx")
 
 [node name="Wall-(5_0, 1_5, 0_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 1.5, 0)
 
-[node name="@MeshInstance3D@22727" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(5_0, 1_5, 0_0)"]
-material_override = ExtResource("4_atngq")
-mesh = SubResource("BoxMesh_1u1pq")
-
-[node name="@CollisionShape3D@22728" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(5_0, 1_5, 0_0)"]
-shape = SubResource("BoxShape3D_towfx")
-
-[node name="Wall-(5_0, 1_5, 2_0)" type="StaticBody3D" parent="LabyrinthWalls"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 1.5, 2)
-
-[node name="@MeshInstance3D@22729" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(5_0, 1_5, 2_0)"]
+[node name="@MeshInstance3D@31289" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(5_0, 1_5, 0_0)"]
 material_override = ExtResource("4_atngq")
 mesh = SubResource("BoxMesh_042eq")
 
-[node name="@CollisionShape3D@22730" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(5_0, 1_5, 2_0)"]
+[node name="@CollisionShape3D@31290" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(5_0, 1_5, 0_0)"]
 shape = SubResource("BoxShape3D_fce2e")
 
 [node name="Wall-(5_0, 1_5, 4_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 1.5, 4)
 
-[node name="@MeshInstance3D@22731" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(5_0, 1_5, 4_0)"]
+[node name="@MeshInstance3D@31291" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(5_0, 1_5, 4_0)"]
 material_override = ExtResource("4_atngq")
 mesh = SubResource("BoxMesh_07tpu")
 
-[node name="@CollisionShape3D@22732" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(5_0, 1_5, 4_0)"]
+[node name="@CollisionShape3D@31292" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(5_0, 1_5, 4_0)"]
 shape = SubResource("BoxShape3D_dchti")
 
 [node name="Wall-(5_0, 1_5, 8_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 1.5, 8)
 
-[node name="@MeshInstance3D@22733" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(5_0, 1_5, 8_0)"]
+[node name="@MeshInstance3D@31293" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(5_0, 1_5, 8_0)"]
 material_override = ExtResource("4_atngq")
 mesh = SubResource("BoxMesh_oek5e")
 
-[node name="@CollisionShape3D@22734" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(5_0, 1_5, 8_0)"]
+[node name="@CollisionShape3D@31294" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(5_0, 1_5, 8_0)"]
 shape = SubResource("BoxShape3D_f5pvn")
-
-[node name="Wall-(5_0, 1_5, 10_0)" type="StaticBody3D" parent="LabyrinthWalls"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 1.5, 10)
-
-[node name="@MeshInstance3D@22735" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(5_0, 1_5, 10_0)"]
-material_override = ExtResource("4_atngq")
-mesh = SubResource("BoxMesh_ec8ch")
-
-[node name="@CollisionShape3D@22736" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(5_0, 1_5, 10_0)"]
-shape = SubResource("BoxShape3D_pa5wx")
 
 [node name="Wall-(5_0, 1_5, 12_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 1.5, 12)
 
-[node name="@MeshInstance3D@22737" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(5_0, 1_5, 12_0)"]
+[node name="@MeshInstance3D@31295" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(5_0, 1_5, 12_0)"]
 material_override = ExtResource("4_atngq")
-mesh = SubResource("BoxMesh_crvgt")
+mesh = SubResource("BoxMesh_ec8ch")
 
-[node name="@CollisionShape3D@22738" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(5_0, 1_5, 12_0)"]
-shape = SubResource("BoxShape3D_kuxch")
+[node name="@CollisionShape3D@31296" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(5_0, 1_5, 12_0)"]
+shape = SubResource("BoxShape3D_pa5wx")
 
 [node name="Wall-(6_0, 1_5, 0_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 1.5, 0)
 
-[node name="@MeshInstance3D@22739" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(6_0, 1_5, 0_0)"]
+[node name="@MeshInstance3D@31297" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(6_0, 1_5, 0_0)"]
 material_override = ExtResource("4_atngq")
-mesh = SubResource("BoxMesh_qbuiw")
+mesh = SubResource("BoxMesh_crvgt")
 
-[node name="@CollisionShape3D@22740" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(6_0, 1_5, 0_0)"]
-shape = SubResource("BoxShape3D_4vuwh")
+[node name="@CollisionShape3D@31298" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(6_0, 1_5, 0_0)"]
+shape = SubResource("BoxShape3D_kuxch")
 
 [node name="Wall-(6_0, 1_5, 2_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 1.5, 2)
 
-[node name="@MeshInstance3D@22741" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(6_0, 1_5, 2_0)"]
+[node name="@MeshInstance3D@31299" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(6_0, 1_5, 2_0)"]
+material_override = ExtResource("4_atngq")
+mesh = SubResource("BoxMesh_qbuiw")
+
+[node name="@CollisionShape3D@31300" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(6_0, 1_5, 2_0)"]
+shape = SubResource("BoxShape3D_4vuwh")
+
+[node name="Wall-(6_0, 1_5, 3_0)" type="StaticBody3D" parent="LabyrinthWalls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 1.5, 3)
+
+[node name="@MeshInstance3D@31301" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(6_0, 1_5, 3_0)"]
 material_override = ExtResource("4_atngq")
 mesh = SubResource("BoxMesh_ol14q")
 
-[node name="@CollisionShape3D@22742" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(6_0, 1_5, 2_0)"]
+[node name="@CollisionShape3D@31302" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(6_0, 1_5, 3_0)"]
 shape = SubResource("BoxShape3D_yvx0x")
 
 [node name="Wall-(6_0, 1_5, 4_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 1.5, 4)
 
-[node name="@MeshInstance3D@22743" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(6_0, 1_5, 4_0)"]
+[node name="@MeshInstance3D@31303" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(6_0, 1_5, 4_0)"]
 material_override = ExtResource("4_atngq")
 mesh = SubResource("BoxMesh_bcocd")
 
-[node name="@CollisionShape3D@22744" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(6_0, 1_5, 4_0)"]
+[node name="@CollisionShape3D@31304" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(6_0, 1_5, 4_0)"]
 shape = SubResource("BoxShape3D_11gee")
 
 [node name="Wall-(6_0, 1_5, 6_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 1.5, 6)
 
-[node name="@MeshInstance3D@22745" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(6_0, 1_5, 6_0)"]
+[node name="@MeshInstance3D@31305" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(6_0, 1_5, 6_0)"]
 material_override = ExtResource("4_atngq")
 mesh = SubResource("BoxMesh_6rgf6")
 
-[node name="@CollisionShape3D@22746" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(6_0, 1_5, 6_0)"]
+[node name="@CollisionShape3D@31306" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(6_0, 1_5, 6_0)"]
 shape = SubResource("BoxShape3D_xqd3v")
 
 [node name="Wall-(6_0, 1_5, 7_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 1.5, 7)
 
-[node name="@MeshInstance3D@22747" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(6_0, 1_5, 7_0)"]
+[node name="@MeshInstance3D@31307" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(6_0, 1_5, 7_0)"]
 material_override = ExtResource("4_atngq")
 mesh = SubResource("BoxMesh_hjj1x")
 
-[node name="@CollisionShape3D@22748" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(6_0, 1_5, 7_0)"]
+[node name="@CollisionShape3D@31308" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(6_0, 1_5, 7_0)"]
 shape = SubResource("BoxShape3D_1jaco")
 
 [node name="Wall-(6_0, 1_5, 8_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 1.5, 8)
 
-[node name="@MeshInstance3D@22749" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(6_0, 1_5, 8_0)"]
+[node name="@MeshInstance3D@31309" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(6_0, 1_5, 8_0)"]
 material_override = ExtResource("4_atngq")
 mesh = SubResource("BoxMesh_b42ku")
 
-[node name="@CollisionShape3D@22750" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(6_0, 1_5, 8_0)"]
+[node name="@CollisionShape3D@31310" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(6_0, 1_5, 8_0)"]
 shape = SubResource("BoxShape3D_2tua1")
 
 [node name="Wall-(6_0, 1_5, 9_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 1.5, 9)
 
-[node name="@MeshInstance3D@22751" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(6_0, 1_5, 9_0)"]
+[node name="@MeshInstance3D@31311" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(6_0, 1_5, 9_0)"]
 material_override = ExtResource("4_atngq")
 mesh = SubResource("BoxMesh_or6ii")
 
-[node name="@CollisionShape3D@22752" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(6_0, 1_5, 9_0)"]
+[node name="@CollisionShape3D@31312" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(6_0, 1_5, 9_0)"]
 shape = SubResource("BoxShape3D_s8j6u")
 
 [node name="Wall-(6_0, 1_5, 10_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 1.5, 10)
 
-[node name="@MeshInstance3D@22753" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(6_0, 1_5, 10_0)"]
+[node name="@MeshInstance3D@31313" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(6_0, 1_5, 10_0)"]
 material_override = ExtResource("4_atngq")
 mesh = SubResource("BoxMesh_08not")
 
-[node name="@CollisionShape3D@22754" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(6_0, 1_5, 10_0)"]
+[node name="@CollisionShape3D@31314" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(6_0, 1_5, 10_0)"]
 shape = SubResource("BoxShape3D_nl18p")
+
+[node name="Wall-(6_0, 1_5, 11_0)" type="StaticBody3D" parent="LabyrinthWalls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 1.5, 11)
+
+[node name="@MeshInstance3D@31315" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(6_0, 1_5, 11_0)"]
+material_override = ExtResource("4_atngq")
+mesh = SubResource("BoxMesh_58md4")
+
+[node name="@CollisionShape3D@31316" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(6_0, 1_5, 11_0)"]
+shape = SubResource("BoxShape3D_yx7it")
 
 [node name="Wall-(6_0, 1_5, 12_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 1.5, 12)
 
-[node name="@MeshInstance3D@22755" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(6_0, 1_5, 12_0)"]
+[node name="@MeshInstance3D@31317" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(6_0, 1_5, 12_0)"]
 material_override = ExtResource("4_atngq")
-mesh = SubResource("BoxMesh_58md4")
+mesh = SubResource("BoxMesh_nsktb")
 
-[node name="@CollisionShape3D@22756" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(6_0, 1_5, 12_0)"]
-shape = SubResource("BoxShape3D_yx7it")
+[node name="@CollisionShape3D@31318" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(6_0, 1_5, 12_0)"]
+shape = SubResource("BoxShape3D_hcj1a")
 
 [node name="Wall-(7_0, 1_5, 0_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 1.5, 0)
 
-[node name="@MeshInstance3D@22757" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(7_0, 1_5, 0_0)"]
-material_override = ExtResource("4_atngq")
-mesh = SubResource("BoxMesh_nsktb")
-
-[node name="@CollisionShape3D@22758" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(7_0, 1_5, 0_0)"]
-shape = SubResource("BoxShape3D_hcj1a")
-
-[node name="Wall-(7_0, 1_5, 2_0)" type="StaticBody3D" parent="LabyrinthWalls"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 1.5, 2)
-
-[node name="@MeshInstance3D@22759" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(7_0, 1_5, 2_0)"]
+[node name="@MeshInstance3D@31319" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(7_0, 1_5, 0_0)"]
 material_override = ExtResource("4_atngq")
 mesh = SubResource("BoxMesh_5qnej")
 
-[node name="@CollisionShape3D@22760" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(7_0, 1_5, 2_0)"]
+[node name="@CollisionShape3D@31320" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(7_0, 1_5, 0_0)"]
 shape = SubResource("BoxShape3D_3av8o")
 
-[node name="Wall-(7_0, 1_5, 6_0)" type="StaticBody3D" parent="LabyrinthWalls"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 1.5, 6)
+[node name="Wall-(7_0, 1_5, 4_0)" type="StaticBody3D" parent="LabyrinthWalls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 1.5, 4)
 
-[node name="@MeshInstance3D@22761" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(7_0, 1_5, 6_0)"]
+[node name="@MeshInstance3D@31321" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(7_0, 1_5, 4_0)"]
 material_override = ExtResource("4_atngq")
 mesh = SubResource("BoxMesh_4kavr")
 
-[node name="@CollisionShape3D@22762" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(7_0, 1_5, 6_0)"]
+[node name="@CollisionShape3D@31322" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(7_0, 1_5, 4_0)"]
 shape = SubResource("BoxShape3D_vrmln")
 
 [node name="Wall-(7_0, 1_5, 12_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 1.5, 12)
 
-[node name="@MeshInstance3D@22763" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(7_0, 1_5, 12_0)"]
+[node name="@MeshInstance3D@31323" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(7_0, 1_5, 12_0)"]
 material_override = ExtResource("4_atngq")
 mesh = SubResource("BoxMesh_3nun3")
 
-[node name="@CollisionShape3D@22764" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(7_0, 1_5, 12_0)"]
+[node name="@CollisionShape3D@31324" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(7_0, 1_5, 12_0)"]
 shape = SubResource("BoxShape3D_82ev4")
 
 [node name="Wall-(8_0, 1_5, 0_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 1.5, 0)
 
-[node name="@MeshInstance3D@22765" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(8_0, 1_5, 0_0)"]
+[node name="@MeshInstance3D@31325" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(8_0, 1_5, 0_0)"]
 material_override = ExtResource("4_atngq")
 mesh = SubResource("BoxMesh_26o21")
 
-[node name="@CollisionShape3D@22766" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(8_0, 1_5, 0_0)"]
+[node name="@CollisionShape3D@31326" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(8_0, 1_5, 0_0)"]
 shape = SubResource("BoxShape3D_du13y")
+
+[node name="Wall-(8_0, 1_5, 1_0)" type="StaticBody3D" parent="LabyrinthWalls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 1.5, 1)
+
+[node name="@MeshInstance3D@31327" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(8_0, 1_5, 1_0)"]
+material_override = ExtResource("4_atngq")
+mesh = SubResource("BoxMesh_yfw3g")
+
+[node name="@CollisionShape3D@31328" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(8_0, 1_5, 1_0)"]
+shape = SubResource("BoxShape3D_46kq1")
 
 [node name="Wall-(8_0, 1_5, 2_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 1.5, 2)
 
-[node name="@MeshInstance3D@22767" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(8_0, 1_5, 2_0)"]
-material_override = ExtResource("4_atngq")
-mesh = SubResource("BoxMesh_yfw3g")
-
-[node name="@CollisionShape3D@22768" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(8_0, 1_5, 2_0)"]
-shape = SubResource("BoxShape3D_46kq1")
-
-[node name="Wall-(8_0, 1_5, 3_0)" type="StaticBody3D" parent="LabyrinthWalls"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 1.5, 3)
-
-[node name="@MeshInstance3D@22769" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(8_0, 1_5, 3_0)"]
+[node name="@MeshInstance3D@31329" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(8_0, 1_5, 2_0)"]
 material_override = ExtResource("4_atngq")
 mesh = SubResource("BoxMesh_mh01h")
 
-[node name="@CollisionShape3D@22770" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(8_0, 1_5, 3_0)"]
+[node name="@CollisionShape3D@31330" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(8_0, 1_5, 2_0)"]
 shape = SubResource("BoxShape3D_t4hje")
 
 [node name="Wall-(8_0, 1_5, 4_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 1.5, 4)
 
-[node name="@MeshInstance3D@22771" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(8_0, 1_5, 4_0)"]
+[node name="@MeshInstance3D@31331" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(8_0, 1_5, 4_0)"]
 material_override = ExtResource("4_atngq")
 mesh = SubResource("BoxMesh_e1pjg")
 
-[node name="@CollisionShape3D@22772" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(8_0, 1_5, 4_0)"]
+[node name="@CollisionShape3D@31332" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(8_0, 1_5, 4_0)"]
 shape = SubResource("BoxShape3D_1ky2m")
 
 [node name="Wall-(8_0, 1_5, 5_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 1.5, 5)
 
-[node name="@MeshInstance3D@22773" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(8_0, 1_5, 5_0)"]
+[node name="@MeshInstance3D@31333" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(8_0, 1_5, 5_0)"]
 material_override = ExtResource("4_atngq")
 mesh = SubResource("BoxMesh_12yxl")
 
-[node name="@CollisionShape3D@22774" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(8_0, 1_5, 5_0)"]
+[node name="@CollisionShape3D@31334" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(8_0, 1_5, 5_0)"]
 shape = SubResource("BoxShape3D_sod4b")
 
 [node name="Wall-(8_0, 1_5, 6_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 1.5, 6)
 
-[node name="@MeshInstance3D@22775" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(8_0, 1_5, 6_0)"]
+[node name="@MeshInstance3D@31335" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(8_0, 1_5, 6_0)"]
 material_override = ExtResource("4_atngq")
 mesh = SubResource("BoxMesh_mc6vk")
 
-[node name="@CollisionShape3D@22776" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(8_0, 1_5, 6_0)"]
+[node name="@CollisionShape3D@31336" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(8_0, 1_5, 6_0)"]
 shape = SubResource("BoxShape3D_2lrwr")
+
+[node name="Wall-(8_0, 1_5, 7_0)" type="StaticBody3D" parent="LabyrinthWalls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 1.5, 7)
+
+[node name="@MeshInstance3D@31337" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(8_0, 1_5, 7_0)"]
+material_override = ExtResource("4_atngq")
+mesh = SubResource("BoxMesh_14535")
+
+[node name="@CollisionShape3D@31338" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(8_0, 1_5, 7_0)"]
+shape = SubResource("BoxShape3D_sj6lp")
 
 [node name="Wall-(8_0, 1_5, 8_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 1.5, 8)
 
-[node name="@MeshInstance3D@22777" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(8_0, 1_5, 8_0)"]
+[node name="@MeshInstance3D@31339" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(8_0, 1_5, 8_0)"]
 material_override = ExtResource("4_atngq")
-mesh = SubResource("BoxMesh_14535")
+mesh = SubResource("BoxMesh_4xs5v")
 
-[node name="@CollisionShape3D@22778" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(8_0, 1_5, 8_0)"]
-shape = SubResource("BoxShape3D_sj6lp")
+[node name="@CollisionShape3D@31340" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(8_0, 1_5, 8_0)"]
+shape = SubResource("BoxShape3D_cmmlo")
 
 [node name="Wall-(8_0, 1_5, 9_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 1.5, 9)
 
-[node name="@MeshInstance3D@22779" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(8_0, 1_5, 9_0)"]
+[node name="@MeshInstance3D@31341" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(8_0, 1_5, 9_0)"]
 material_override = ExtResource("4_atngq")
-mesh = SubResource("BoxMesh_4xs5v")
+mesh = SubResource("BoxMesh_ff42i")
 
-[node name="@CollisionShape3D@22780" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(8_0, 1_5, 9_0)"]
-shape = SubResource("BoxShape3D_cmmlo")
+[node name="@CollisionShape3D@31342" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(8_0, 1_5, 9_0)"]
+shape = SubResource("BoxShape3D_m42ui")
 
 [node name="Wall-(8_0, 1_5, 10_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 1.5, 10)
 
-[node name="@MeshInstance3D@22781" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(8_0, 1_5, 10_0)"]
+[node name="@MeshInstance3D@31343" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(8_0, 1_5, 10_0)"]
 material_override = ExtResource("4_atngq")
-mesh = SubResource("BoxMesh_ff42i")
+mesh = SubResource("BoxMesh_k2385")
 
-[node name="@CollisionShape3D@22782" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(8_0, 1_5, 10_0)"]
-shape = SubResource("BoxShape3D_m42ui")
+[node name="@CollisionShape3D@31344" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(8_0, 1_5, 10_0)"]
+shape = SubResource("BoxShape3D_mq1i8")
 
 [node name="Wall-(8_0, 1_5, 12_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 1.5, 12)
 
-[node name="@MeshInstance3D@22783" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(8_0, 1_5, 12_0)"]
+[node name="@MeshInstance3D@31345" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(8_0, 1_5, 12_0)"]
 material_override = ExtResource("4_atngq")
-mesh = SubResource("BoxMesh_k2385")
+mesh = SubResource("BoxMesh_3oxcq")
 
-[node name="@CollisionShape3D@22784" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(8_0, 1_5, 12_0)"]
-shape = SubResource("BoxShape3D_mq1i8")
+[node name="@CollisionShape3D@31346" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(8_0, 1_5, 12_0)"]
+shape = SubResource("BoxShape3D_37edf")
 
 [node name="Wall-(9_0, 1_5, 0_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 1.5, 0)
 
-[node name="@MeshInstance3D@22785" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(9_0, 1_5, 0_0)"]
+[node name="@MeshInstance3D@31347" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(9_0, 1_5, 0_0)"]
 material_override = ExtResource("4_atngq")
-mesh = SubResource("BoxMesh_3oxcq")
+mesh = SubResource("BoxMesh_rsagt")
 
-[node name="@CollisionShape3D@22786" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(9_0, 1_5, 0_0)"]
-shape = SubResource("BoxShape3D_37edf")
+[node name="@CollisionShape3D@31348" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(9_0, 1_5, 0_0)"]
+shape = SubResource("BoxShape3D_ojfpu")
 
 [node name="Wall-(9_0, 1_5, 2_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 1.5, 2)
 
-[node name="@MeshInstance3D@22787" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(9_0, 1_5, 2_0)"]
-material_override = ExtResource("4_atngq")
-mesh = SubResource("BoxMesh_rsagt")
-
-[node name="@CollisionShape3D@22788" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(9_0, 1_5, 2_0)"]
-shape = SubResource("BoxShape3D_ojfpu")
-
-[node name="Wall-(9_0, 1_5, 6_0)" type="StaticBody3D" parent="LabyrinthWalls"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 1.5, 6)
-
-[node name="@MeshInstance3D@22789" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(9_0, 1_5, 6_0)"]
+[node name="@MeshInstance3D@31349" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(9_0, 1_5, 2_0)"]
 material_override = ExtResource("4_atngq")
 mesh = SubResource("BoxMesh_degl3")
 
-[node name="@CollisionShape3D@22790" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(9_0, 1_5, 6_0)"]
+[node name="@CollisionShape3D@31350" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(9_0, 1_5, 2_0)"]
 shape = SubResource("BoxShape3D_x17vk")
 
 [node name="Wall-(9_0, 1_5, 10_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 1.5, 10)
 
-[node name="@MeshInstance3D@22791" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(9_0, 1_5, 10_0)"]
+[node name="@MeshInstance3D@31351" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(9_0, 1_5, 10_0)"]
 material_override = ExtResource("4_atngq")
 mesh = SubResource("BoxMesh_8v45m")
 
-[node name="@CollisionShape3D@22792" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(9_0, 1_5, 10_0)"]
+[node name="@CollisionShape3D@31352" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(9_0, 1_5, 10_0)"]
 shape = SubResource("BoxShape3D_05mf0")
 
 [node name="Wall-(9_0, 1_5, 12_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 1.5, 12)
 
-[node name="@MeshInstance3D@22793" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(9_0, 1_5, 12_0)"]
+[node name="@MeshInstance3D@31353" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(9_0, 1_5, 12_0)"]
 material_override = ExtResource("4_atngq")
 mesh = SubResource("BoxMesh_hjnis")
 
-[node name="@CollisionShape3D@22794" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(9_0, 1_5, 12_0)"]
+[node name="@CollisionShape3D@31354" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(9_0, 1_5, 12_0)"]
 shape = SubResource("BoxShape3D_mhhbe")
 
 [node name="Wall-(10_0, 1_5, 0_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 1.5, 0)
 
-[node name="@MeshInstance3D@22795" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(10_0, 1_5, 0_0)"]
+[node name="@MeshInstance3D@31355" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(10_0, 1_5, 0_0)"]
 material_override = ExtResource("4_atngq")
 mesh = SubResource("BoxMesh_4iayr")
 
-[node name="@CollisionShape3D@22796" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(10_0, 1_5, 0_0)"]
+[node name="@CollisionShape3D@31356" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(10_0, 1_5, 0_0)"]
 shape = SubResource("BoxShape3D_eya3v")
 
 [node name="Wall-(10_0, 1_5, 2_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 1.5, 2)
 
-[node name="@MeshInstance3D@22797" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(10_0, 1_5, 2_0)"]
+[node name="@MeshInstance3D@31357" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(10_0, 1_5, 2_0)"]
 material_override = ExtResource("4_atngq")
 mesh = SubResource("BoxMesh_g3u0n")
 
-[node name="@CollisionShape3D@22798" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(10_0, 1_5, 2_0)"]
+[node name="@CollisionShape3D@31358" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(10_0, 1_5, 2_0)"]
 shape = SubResource("BoxShape3D_h5muu")
+
+[node name="Wall-(10_0, 1_5, 3_0)" type="StaticBody3D" parent="LabyrinthWalls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 1.5, 3)
+
+[node name="@MeshInstance3D@31359" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(10_0, 1_5, 3_0)"]
+material_override = ExtResource("4_atngq")
+mesh = SubResource("BoxMesh_12usy")
+
+[node name="@CollisionShape3D@31360" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(10_0, 1_5, 3_0)"]
+shape = SubResource("BoxShape3D_6ncbj")
 
 [node name="Wall-(10_0, 1_5, 4_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 1.5, 4)
 
-[node name="@MeshInstance3D@22799" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(10_0, 1_5, 4_0)"]
+[node name="@MeshInstance3D@31361" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(10_0, 1_5, 4_0)"]
 material_override = ExtResource("4_atngq")
-mesh = SubResource("BoxMesh_12usy")
+mesh = SubResource("BoxMesh_14a6r")
 
-[node name="@CollisionShape3D@22800" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(10_0, 1_5, 4_0)"]
-shape = SubResource("BoxShape3D_6ncbj")
+[node name="@CollisionShape3D@31362" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(10_0, 1_5, 4_0)"]
+shape = SubResource("BoxShape3D_g15t5")
+
+[node name="Wall-(10_0, 1_5, 5_0)" type="StaticBody3D" parent="LabyrinthWalls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 1.5, 5)
+
+[node name="@MeshInstance3D@31363" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(10_0, 1_5, 5_0)"]
+material_override = ExtResource("4_atngq")
+mesh = SubResource("BoxMesh_jk4cp")
+
+[node name="@CollisionShape3D@31364" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(10_0, 1_5, 5_0)"]
+shape = SubResource("BoxShape3D_u7ucu")
 
 [node name="Wall-(10_0, 1_5, 6_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 1.5, 6)
 
-[node name="@MeshInstance3D@22801" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(10_0, 1_5, 6_0)"]
+[node name="@MeshInstance3D@31365" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(10_0, 1_5, 6_0)"]
 material_override = ExtResource("4_atngq")
-mesh = SubResource("BoxMesh_14a6r")
+mesh = SubResource("BoxMesh_f3x2j")
 
-[node name="@CollisionShape3D@22802" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(10_0, 1_5, 6_0)"]
-shape = SubResource("BoxShape3D_g15t5")
+[node name="@CollisionShape3D@31366" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(10_0, 1_5, 6_0)"]
+shape = SubResource("BoxShape3D_8rcpk")
 
 [node name="Wall-(10_0, 1_5, 7_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 1.5, 7)
 
-[node name="@MeshInstance3D@22803" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(10_0, 1_5, 7_0)"]
+[node name="@MeshInstance3D@31367" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(10_0, 1_5, 7_0)"]
 material_override = ExtResource("4_atngq")
-mesh = SubResource("BoxMesh_jk4cp")
+mesh = SubResource("BoxMesh_bfy8f")
 
-[node name="@CollisionShape3D@22804" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(10_0, 1_5, 7_0)"]
-shape = SubResource("BoxShape3D_u7ucu")
+[node name="@CollisionShape3D@31368" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(10_0, 1_5, 7_0)"]
+shape = SubResource("BoxShape3D_0otgb")
 
 [node name="Wall-(10_0, 1_5, 8_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 1.5, 8)
 
-[node name="@MeshInstance3D@22805" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(10_0, 1_5, 8_0)"]
+[node name="@MeshInstance3D@31369" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(10_0, 1_5, 8_0)"]
 material_override = ExtResource("4_atngq")
-mesh = SubResource("BoxMesh_f3x2j")
+mesh = SubResource("BoxMesh_wwggx")
 
-[node name="@CollisionShape3D@22806" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(10_0, 1_5, 8_0)"]
-shape = SubResource("BoxShape3D_8rcpk")
+[node name="@CollisionShape3D@31370" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(10_0, 1_5, 8_0)"]
+shape = SubResource("BoxShape3D_kbglw")
 
 [node name="Wall-(10_0, 1_5, 10_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 1.5, 10)
 
-[node name="@MeshInstance3D@22807" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(10_0, 1_5, 10_0)"]
+[node name="@MeshInstance3D@31371" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(10_0, 1_5, 10_0)"]
 material_override = ExtResource("4_atngq")
-mesh = SubResource("BoxMesh_bfy8f")
+mesh = SubResource("BoxMesh_vpmvj")
 
-[node name="@CollisionShape3D@22808" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(10_0, 1_5, 10_0)"]
-shape = SubResource("BoxShape3D_0otgb")
+[node name="@CollisionShape3D@31372" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(10_0, 1_5, 10_0)"]
+shape = SubResource("BoxShape3D_hwyal")
 
 [node name="Wall-(10_0, 1_5, 12_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 1.5, 12)
 
-[node name="@MeshInstance3D@22809" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(10_0, 1_5, 12_0)"]
+[node name="@MeshInstance3D@31373" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(10_0, 1_5, 12_0)"]
 material_override = ExtResource("4_atngq")
-mesh = SubResource("BoxMesh_wwggx")
+mesh = SubResource("BoxMesh_hgpfo")
 
-[node name="@CollisionShape3D@22810" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(10_0, 1_5, 12_0)"]
-shape = SubResource("BoxShape3D_kbglw")
+[node name="@CollisionShape3D@31374" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(10_0, 1_5, 12_0)"]
+shape = SubResource("BoxShape3D_p4jv4")
 
 [node name="Wall-(11_0, 1_5, 0_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 1.5, 0)
 
-[node name="@MeshInstance3D@22811" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(11_0, 1_5, 0_0)"]
-material_override = ExtResource("4_atngq")
-mesh = SubResource("BoxMesh_vpmvj")
-
-[node name="@CollisionShape3D@22812" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(11_0, 1_5, 0_0)"]
-shape = SubResource("BoxShape3D_hwyal")
-
-[node name="Wall-(11_0, 1_5, 4_0)" type="StaticBody3D" parent="LabyrinthWalls"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 1.5, 4)
-
-[node name="@MeshInstance3D@22813" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(11_0, 1_5, 4_0)"]
-material_override = ExtResource("4_atngq")
-mesh = SubResource("BoxMesh_hgpfo")
-
-[node name="@CollisionShape3D@22814" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(11_0, 1_5, 4_0)"]
-shape = SubResource("BoxShape3D_p4jv4")
-
-[node name="Wall-(11_0, 1_5, 10_0)" type="StaticBody3D" parent="LabyrinthWalls"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 1.5, 10)
-
-[node name="@MeshInstance3D@22815" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(11_0, 1_5, 10_0)"]
+[node name="@MeshInstance3D@31375" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(11_0, 1_5, 0_0)"]
 material_override = ExtResource("4_atngq")
 mesh = SubResource("BoxMesh_71qvk")
 
-[node name="@CollisionShape3D@22816" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(11_0, 1_5, 10_0)"]
+[node name="@CollisionShape3D@31376" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(11_0, 1_5, 0_0)"]
 shape = SubResource("BoxShape3D_2kq00")
 
 [node name="Wall-(11_0, 1_5, 12_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 1.5, 12)
 
-[node name="@MeshInstance3D@22817" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(11_0, 1_5, 12_0)"]
+[node name="@MeshInstance3D@31377" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(11_0, 1_5, 12_0)"]
 material_override = ExtResource("4_atngq")
 mesh = SubResource("BoxMesh_6s3dp")
 
-[node name="@CollisionShape3D@22818" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(11_0, 1_5, 12_0)"]
+[node name="@CollisionShape3D@31378" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(11_0, 1_5, 12_0)"]
 shape = SubResource("BoxShape3D_bamfa")
 
 [node name="Wall-(12_0, 1_5, 0_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 1.5, 0)
 
-[node name="@MeshInstance3D@22819" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(12_0, 1_5, 0_0)"]
+[node name="@MeshInstance3D@31379" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(12_0, 1_5, 0_0)"]
 material_override = ExtResource("4_atngq")
 mesh = SubResource("BoxMesh_2b44f")
 
-[node name="@CollisionShape3D@22820" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(12_0, 1_5, 0_0)"]
+[node name="@CollisionShape3D@31380" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(12_0, 1_5, 0_0)"]
 shape = SubResource("BoxShape3D_mbqnu")
 
 [node name="Wall-(12_0, 1_5, 1_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 1.5, 1)
 
-[node name="@MeshInstance3D@22821" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(12_0, 1_5, 1_0)"]
+[node name="@MeshInstance3D@31381" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(12_0, 1_5, 1_0)"]
 material_override = ExtResource("4_atngq")
 mesh = SubResource("BoxMesh_vvluk")
 
-[node name="@CollisionShape3D@22822" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(12_0, 1_5, 1_0)"]
+[node name="@CollisionShape3D@31382" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(12_0, 1_5, 1_0)"]
 shape = SubResource("BoxShape3D_tk5e7")
 
 [node name="Wall-(12_0, 1_5, 2_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 1.5, 2)
 
-[node name="@MeshInstance3D@22823" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(12_0, 1_5, 2_0)"]
+[node name="@MeshInstance3D@31383" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(12_0, 1_5, 2_0)"]
 material_override = ExtResource("4_atngq")
 mesh = SubResource("BoxMesh_5gvi8")
 
-[node name="@CollisionShape3D@22824" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(12_0, 1_5, 2_0)"]
+[node name="@CollisionShape3D@31384" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(12_0, 1_5, 2_0)"]
 shape = SubResource("BoxShape3D_jg0hr")
 
 [node name="Wall-(12_0, 1_5, 3_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 1.5, 3)
 
-[node name="@MeshInstance3D@22825" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(12_0, 1_5, 3_0)"]
+[node name="@MeshInstance3D@31385" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(12_0, 1_5, 3_0)"]
 material_override = ExtResource("4_atngq")
 mesh = SubResource("BoxMesh_asoig")
 
-[node name="@CollisionShape3D@22826" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(12_0, 1_5, 3_0)"]
+[node name="@CollisionShape3D@31386" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(12_0, 1_5, 3_0)"]
 shape = SubResource("BoxShape3D_5icvr")
 
 [node name="Wall-(12_0, 1_5, 4_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 1.5, 4)
 
-[node name="@MeshInstance3D@22827" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(12_0, 1_5, 4_0)"]
+[node name="@MeshInstance3D@31387" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(12_0, 1_5, 4_0)"]
 material_override = ExtResource("4_atngq")
 mesh = SubResource("BoxMesh_q5fgo")
 
-[node name="@CollisionShape3D@22828" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(12_0, 1_5, 4_0)"]
+[node name="@CollisionShape3D@31388" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(12_0, 1_5, 4_0)"]
 shape = SubResource("BoxShape3D_8llxw")
 
 [node name="Wall-(12_0, 1_5, 5_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 1.5, 5)
 
-[node name="@MeshInstance3D@22829" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(12_0, 1_5, 5_0)"]
+[node name="@MeshInstance3D@31389" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(12_0, 1_5, 5_0)"]
 material_override = ExtResource("4_atngq")
 mesh = SubResource("BoxMesh_d6fws")
 
-[node name="@CollisionShape3D@22830" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(12_0, 1_5, 5_0)"]
+[node name="@CollisionShape3D@31390" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(12_0, 1_5, 5_0)"]
 shape = SubResource("BoxShape3D_3mtt7")
 
 [node name="Wall-(12_0, 1_5, 6_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 1.5, 6)
 
-[node name="@MeshInstance3D@22831" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(12_0, 1_5, 6_0)"]
+[node name="@MeshInstance3D@31391" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(12_0, 1_5, 6_0)"]
 material_override = ExtResource("4_atngq")
 mesh = SubResource("BoxMesh_cbp6m")
 
-[node name="@CollisionShape3D@22832" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(12_0, 1_5, 6_0)"]
+[node name="@CollisionShape3D@31392" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(12_0, 1_5, 6_0)"]
 shape = SubResource("BoxShape3D_iocs5")
 
 [node name="Wall-(12_0, 1_5, 7_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 1.5, 7)
 
-[node name="@MeshInstance3D@22833" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(12_0, 1_5, 7_0)"]
+[node name="@MeshInstance3D@31393" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(12_0, 1_5, 7_0)"]
 material_override = ExtResource("4_atngq")
 mesh = SubResource("BoxMesh_1dew1")
 
-[node name="@CollisionShape3D@22834" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(12_0, 1_5, 7_0)"]
+[node name="@CollisionShape3D@31394" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(12_0, 1_5, 7_0)"]
 shape = SubResource("BoxShape3D_k5bvx")
 
 [node name="Wall-(12_0, 1_5, 8_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 1.5, 8)
 
-[node name="@MeshInstance3D@22835" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(12_0, 1_5, 8_0)"]
+[node name="@MeshInstance3D@31395" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(12_0, 1_5, 8_0)"]
 material_override = ExtResource("4_atngq")
 mesh = SubResource("BoxMesh_nmc2i")
 
-[node name="@CollisionShape3D@22836" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(12_0, 1_5, 8_0)"]
+[node name="@CollisionShape3D@31396" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(12_0, 1_5, 8_0)"]
 shape = SubResource("BoxShape3D_w4ofa")
 
 [node name="Wall-(12_0, 1_5, 9_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 1.5, 9)
 
-[node name="@MeshInstance3D@22837" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(12_0, 1_5, 9_0)"]
+[node name="@MeshInstance3D@31397" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(12_0, 1_5, 9_0)"]
 material_override = ExtResource("4_atngq")
 mesh = SubResource("BoxMesh_rp2sy")
 
-[node name="@CollisionShape3D@22838" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(12_0, 1_5, 9_0)"]
+[node name="@CollisionShape3D@31398" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(12_0, 1_5, 9_0)"]
 shape = SubResource("BoxShape3D_vabyc")
 
 [node name="Wall-(12_0, 1_5, 10_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 1.5, 10)
 
-[node name="@MeshInstance3D@22839" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(12_0, 1_5, 10_0)"]
+[node name="@MeshInstance3D@31399" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(12_0, 1_5, 10_0)"]
 material_override = ExtResource("4_atngq")
 mesh = SubResource("BoxMesh_iivr6")
 
-[node name="@CollisionShape3D@22840" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(12_0, 1_5, 10_0)"]
+[node name="@CollisionShape3D@31400" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(12_0, 1_5, 10_0)"]
 shape = SubResource("BoxShape3D_vsrtj")
 
 [node name="Wall-(12_0, 1_5, 12_0)" type="StaticBody3D" parent="LabyrinthWalls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 1.5, 12)
 
-[node name="@MeshInstance3D@22841" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(12_0, 1_5, 12_0)"]
+[node name="@MeshInstance3D@31401" type="MeshInstance3D" parent="LabyrinthWalls/Wall-(12_0, 1_5, 12_0)"]
 material_override = ExtResource("4_atngq")
 mesh = SubResource("BoxMesh_ggcjr")
 
-[node name="@CollisionShape3D@22842" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(12_0, 1_5, 12_0)"]
+[node name="@CollisionShape3D@31402" type="CollisionShape3D" parent="LabyrinthWalls/Wall-(12_0, 1_5, 12_0)"]
 shape = SubResource("BoxShape3D_aprnb")
+
+[node name="Lantern-(1_0, 2_2, 5_0)" type="OmniLight3D" parent="LabyrinthWalls"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 1, 2.2, 5)
+
+[node name="lamp" type="Node3D" parent="LabyrinthWalls/Lantern-(1_0, 2_2, 5_0)" instance=ExtResource("2_t6uu3")]
+transform = Transform3D(0.192348, 0, 0.0547918, 0, 0.2, 0, -0.0547918, 0, 0.192348, 0.188, 0.155, 0.007)
+
+[node name="Lantern-(3_0, 2_2, 11_0)" type="OmniLight3D" parent="LabyrinthWalls"]
+transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, 3, 2.2, 11)
+
+[node name="lamp" type="Node3D" parent="LabyrinthWalls/Lantern-(3_0, 2_2, 11_0)" instance=ExtResource("2_t6uu3")]
+transform = Transform3D(0.192348, 0, 0.0547918, 0, 0.2, 0, -0.0547918, 0, 0.192348, 0.188, 0.155, 0.007)
+
+[node name="Lantern-(11_0, 2_2, 9_0)" type="OmniLight3D" parent="LabyrinthWalls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 2.2, 9)
+
+[node name="lamp" type="Node3D" parent="LabyrinthWalls/Lantern-(11_0, 2_2, 9_0)" instance=ExtResource("2_t6uu3")]
+transform = Transform3D(0.192348, 0, 0.0547918, 0, 0.2, 0, -0.0547918, 0, 0.192348, 0.188, 0.155, 0.007)
+
+[node name="Lantern-(11_0, 2_2, 11_0)" type="OmniLight3D" parent="LabyrinthWalls"]
+transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, 11, 2.2, 11)
+
+[node name="lamp" type="Node3D" parent="LabyrinthWalls/Lantern-(11_0, 2_2, 11_0)" instance=ExtResource("2_t6uu3")]
+transform = Transform3D(0.192348, 0, 0.0547918, 0, 0.2, 0, -0.0547918, 0, 0.192348, 0.188, 0.155, 0.007)
+
+[node name="Lantern-(0_0, 2_2, 1_0)" type="OmniLight3D" parent="LabyrinthWalls"]
+transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, 0, 2.2, 1)
+
+[node name="lamp" type="Node3D" parent="LabyrinthWalls/Lantern-(0_0, 2_2, 1_0)" instance=ExtResource("2_t6uu3")]
+transform = Transform3D(0.192348, 0, 0.0547918, 0, 0.2, 0, -0.0547918, 0, 0.192348, 0.188, 0.155, 0.007)
+
+[node name="Lantern-(1_0, 2_2, 3_0)" type="OmniLight3D" parent="LabyrinthWalls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 2.2, 3)
+
+[node name="lamp" type="Node3D" parent="LabyrinthWalls/Lantern-(1_0, 2_2, 3_0)" instance=ExtResource("2_t6uu3")]
+transform = Transform3D(0.192348, 0, 0.0547918, 0, 0.2, 0, -0.0547918, 0, 0.192348, 0.188, 0.155, 0.007)
+
+[node name="Lantern-(3_0, 2_2, 5_0)" type="OmniLight3D" parent="LabyrinthWalls"]
+transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, 3, 2.2, 5)
+
+[node name="lamp" type="Node3D" parent="LabyrinthWalls/Lantern-(3_0, 2_2, 5_0)" instance=ExtResource("2_t6uu3")]
+transform = Transform3D(0.192348, 0, 0.0547918, 0, 0.2, 0, -0.0547918, 0, 0.192348, 0.188, 0.155, 0.007)
+
+[node name="Lantern-(5_0, 2_2, 9_0)" type="OmniLight3D" parent="LabyrinthWalls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 2.2, 9)
+
+[node name="lamp" type="Node3D" parent="LabyrinthWalls/Lantern-(5_0, 2_2, 9_0)" instance=ExtResource("2_t6uu3")]
+transform = Transform3D(0.192348, 0, 0.0547918, 0, 0.2, 0, -0.0547918, 0, 0.192348, 0.188, 0.155, 0.007)
+
+[node name="Lantern-(9_0, 2_2, 1_0)" type="OmniLight3D" parent="LabyrinthWalls"]
+transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, 9, 2.2, 1)
+
+[node name="lamp" type="Node3D" parent="LabyrinthWalls/Lantern-(9_0, 2_2, 1_0)" instance=ExtResource("2_t6uu3")]
+transform = Transform3D(0.192348, 0, 0.0547918, 0, 0.2, 0, -0.0547918, 0, 0.192348, 0.188, 0.155, 0.007)
+
+[node name="Lantern-(12_0, 2_2, 11_0)" type="OmniLight3D" parent="LabyrinthWalls"]
+transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, 12, 2.2, 11)
+
+[node name="lamp" type="Node3D" parent="LabyrinthWalls/Lantern-(12_0, 2_2, 11_0)" instance=ExtResource("2_t6uu3")]
+transform = Transform3D(0.192348, 0, 0.0547918, 0, 0.2, 0, -0.0547918, 0, 0.192348, 0.188, 0.155, 0.007)
+
+[node name="Lantern-(5_0, 2_2, 1_0)" type="OmniLight3D" parent="LabyrinthWalls"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 5, 2.2, 1)
+
+[node name="lamp" type="Node3D" parent="LabyrinthWalls/Lantern-(5_0, 2_2, 1_0)" instance=ExtResource("2_t6uu3")]
+transform = Transform3D(0.192348, 0, 0.0547918, 0, 0.2, 0, -0.0547918, 0, 0.192348, 0.188, 0.155, 0.007)
+
+[node name="Lantern-(7_0, 2_2, 5_0)" type="OmniLight3D" parent="LabyrinthWalls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 2.2, 5)
+
+[node name="lamp" type="Node3D" parent="LabyrinthWalls/Lantern-(7_0, 2_2, 5_0)" instance=ExtResource("2_t6uu3")]
+transform = Transform3D(0.192348, 0, 0.0547918, 0, 0.2, 0, -0.0547918, 0, 0.192348, 0.188, 0.155, 0.007)
+
+[node name="Lantern-(11_0, 2_2, 5_0)" type="OmniLight3D" parent="LabyrinthWalls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 2.2, 5)
+
+[node name="lamp" type="Node3D" parent="LabyrinthWalls/Lantern-(11_0, 2_2, 5_0)" instance=ExtResource("2_t6uu3")]
+transform = Transform3D(0.192348, 0, 0.0547918, 0, 0.2, 0, -0.0547918, 0, 0.192348, 0.188, 0.155, 0.007)
