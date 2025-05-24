@@ -1,7 +1,5 @@
 ﻿using Godot;
-using Godot.Collections;
 using LabyrinthExplorer3D.scripts.core.functions;
-using LabyrinthExplorer3D.scripts.core.menus;
 
 namespace LabyrinthExplorer3D.scripts;
 
