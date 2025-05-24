@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1706.6667
     height: 877.3334
   m_ShowMode: 4
-  m_Title: Project
+  m_Title: Game
   m_RootView: {fileID: 6}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -1026,7 +1026,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Samples
+    - Assets
     m_Globs: []
     m_ProductIds: 
     m_AnyWithAssetOrigin: 0
@@ -1036,16 +1036,16 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Samples
+  - Assets
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\kilia\s25-p1-Labyrinth-fork\kilianbartz
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 175}
-    m_SelectedIDs: 08c20000
-    m_LastClickedID: 49672
-    m_ExpandedIDs: 0000000020c0000022c0000024c0000026c0000028c000002ac000002cc000002ec0000030c00000
+    scrollPos: {x: 0, y: 79}
+    m_SelectedIDs: 20c00000
+    m_LastClickedID: 49184
+    m_ExpandedIDs: 000000002abf00002cbf00002ebf000030bf000032bf000034bf000036bf000038bf00003abf0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1074,7 +1074,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 0000000020c0000022c0000024c0000026c0000028c000002ac000002cc000002ec0000030c00000
+    m_ExpandedIDs: 000000002abf00002cbf00002ebf000030bf000032bf000034bf000036bf000038bf00003abf0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1222,7 +1222,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: f8faffff
+      m_ExpandedIDs: f8faffff54b80000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1798,9 +1798,9 @@ MonoBehaviour:
   m_AudioPlay: 0
   m_DebugDrawModesUseInteractiveLightBakingData: 0
   m_Position:
-    m_Target: {x: 10, y: 0.44000006, z: -10}
+    m_Target: {x: -0.00011086464, y: 0.41580963, z: -0.0013241768}
     speed: 2
-    m_Value: {x: 10, y: 0.44000006, z: -10}
+    m_Value: {x: -0.00011086464, y: 0.41580963, z: -0.0013241768}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1846,13 +1846,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.32726353, y: -0.25773394, z: 0.09303979, w: -0.9054237}
+    m_Target: {x: 0.1541164, y: 0.67235744, z: -0.1461473, w: 0.71050894}
     speed: 2
-    m_Value: {x: -0.32726353, y: -0.25773394, z: 0.09303979, w: -0.9054237}
+    m_Value: {x: 0.1541164, y: 0.67235744, z: -0.1461473, w: 0.71050894}
   m_Size:
-    m_Target: 12.124355
+    m_Target: 0.61853987
     speed: 2
-    m_Value: 12.124355
+    m_Value: 0.61853987
   m_Ortho:
     m_Target: 1
     speed: 2

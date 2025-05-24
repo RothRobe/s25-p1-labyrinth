@@ -208,7 +208,7 @@ public class LevelGenerator : MonoBehaviour
         float goalZ = Random.Range(zMax, 0);
         GameObject goal = Instantiate(goalPrefab, new Vector3(goalX, 0, goalZ), Quaternion.identity);
         goal.transform.parent = transform; // Set the parent to the LevelGenerator object
-        GameManager.Instance.goal = goal; // Set the goal in the GameStateManager
+        GameManager.Instance.goal = goal;
 
         // set random light intensity
         if (Random.Range(0, 100) < 50)
