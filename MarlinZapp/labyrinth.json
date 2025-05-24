@@ -1,77 +1,77 @@
 {
   "walls": [
 	{
-	  "startPosition": { "x": -5, "y": -5 },
-	  "endPosition": { "x": 5, "y": -5 },
+	  "startPosition": { "x": -5, "z": -5 },
+	  "endPosition": { "x": 5, "z": -5 },
 	  "material": "reflecting"
 	},
-	{ "position": { "x": -5, "y": -4 }, "material": "reflecting" },
+	{ "position": { "x": -5, "z": -4 }, "material": "reflecting" },
 	{
-	  "startPosition": { "x": -5, "y": -2 },
-	  "endPosition": { "x": -5, "y": 4 },
-	  "material": "reflecting"
-	},
-	{
-	  "startPosition": { "x": -5, "y": 5 },
-	  "endPosition": { "x": 5, "y": 5 },
+	  "startPosition": { "x": -5, "z": -2 },
+	  "endPosition": { "x": -5, "z": 4 },
 	  "material": "reflecting"
 	},
 	{
-	  "startPosition": { "x": 5, "y": -3 },
-	  "endPosition": { "x": 5, "y": 4 },
+	  "startPosition": { "x": -5, "z": 5 },
+	  "endPosition": { "x": 5, "z": 5 },
 	  "material": "reflecting"
 	},
 	{
-	  "startPosition": { "x": 4, "y": -3 },
-	  "endPosition": { "x": 2, "y": -3 },
+	  "startPosition": { "x": 5, "z": -3 },
+	  "endPosition": { "x": 5, "z": 4 },
 	  "material": "reflecting"
 	},
 	{
-	  "startPosition": { "x": 4, "y": -2 },
-	  "endPosition": { "x": 2, "y": -2 },
+	  "startPosition": { "x": 4, "z": -3 },
+	  "endPosition": { "x": 2, "z": -3 },
 	  "material": "reflecting"
 	},
 	{
-	  "startPosition": { "x": 3, "y": 0 },
-	  "endPosition": { "x": 3, "y": 3 },
+	  "startPosition": { "x": 4, "z": -2 },
+	  "endPosition": { "x": 2, "z": -2 },
+	  "material": "reflecting"
+	},
+	{
+	  "startPosition": { "x": 3, "z": 0 },
+	  "endPosition": { "x": 3, "z": 3 },
 	  "material": "metallic"
 	},
 	{
-	  "startPosition": { "x": 2, "y": 0 },
-	  "endPosition": { "x": 1, "y": 0 },
+	  "startPosition": { "x": 2, "z": 0 },
+	  "endPosition": { "x": 1, "z": 0 },
 	  "material": "reflecting"
 	},
 	{
-	  "startPosition": { "x": 1, "y": 2 },
-	  "endPosition": { "x": 1, "y": 3 },
+	  "startPosition": { "x": 1, "z": 2 },
+	  "endPosition": { "x": 1, "z": 3 },
 	  "material": "transparent"
 	},
-	{ "position": { "x": 0, "y": -4 }, "material": "transparent" },
+	{ "position": { "x": 0, "z": -4 }, "material": "transparent" },
 	{
-	  "startPosition": { "x": 0, "y": -3 },
-	  "endPosition": { "x": 0, "y": 0 },
+	  "startPosition": { "x": 0, "z": -3 },
+	  "endPosition": { "x": 0, "z": 0 },
 	  "material": "absorbing"
 	},
 	{
-	  "startPosition": { "x": 0, "y": 2 },
-	  "endPosition": { "x": -4, "y": 2 },
+	  "startPosition": { "x": 0, "z": 2 },
+	  "endPosition": { "x": -4, "z": 2 },
 	  "material": "absorbing"
 	},
 	{
-	  "startPosition": { "x": -1, "y": 0 },
-	  "endPosition": { "x": -2, "y": 0 },
+	  "startPosition": { "x": -1, "z": 0 },
+	  "endPosition": { "x": -2, "z": 0 },
 	  "material": "absorbing"
 	},
 	{
-	  "startPosition": { "x": -1, "y": 4 },
-	  "endPosition": { "x": -2, "y": 4 },
+	  "startPosition": { "x": -1, "z": 4 },
+	  "endPosition": { "x": -2, "z": 4 },
 	  "material": "metallic"
 	},
-	{ "position": { "x": -2, "y": -3 }, "material": "transparent" },
-	{ "position": { "x": -3, "y": -3 }, "material": "reflecting" },
+	{ "position": { "x": -2, "z": -3 }, "material": "transparent" },
+	{ "position": { "x": -3, "z": -3 }, "material": "reflecting" },
 	{
-	  "startPosition": { "x": -3, "y": -2 },
-	  "endPosition": { "x": -3, "y": 0 },
+	  "startPosition": { "x": -3, "z": -2 },
+	  "endPosition": { "x": -3, "z": 0 },
 	  "material": "metallic"
 	}
   ]
