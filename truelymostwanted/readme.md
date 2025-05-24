@@ -146,3 +146,18 @@ Die Steuerung erfolgt über vordefinierte Input Actions, die sowohl Tastatur, Ma
 | **Inventar: vorheriger Slot**        | `player_inventory_slot_previous` - Mausrad hoch / Taste X              |
 | **Item aufnehmen**                   | `player_item_collect` - Taste E                                        |
 | **Item ablegen**                     | `player_item_drop` - Taste Q                                           |
+
+---
+
+## Bilder
+### Godot Engine
+![image](https://github.com/user-attachments/assets/c037f2b6-634b-424f-91a5-d0657fa0dba2)
+![image](https://github.com/user-attachments/assets/39631ebe-39b6-4d3f-9388-904bd45fb695)
+![image](https://github.com/user-attachments/assets/4dd5f6ec-a862-4047-b74a-c03752addefb)
+![image](https://github.com/user-attachments/assets/ba3e737a-0f71-420b-9366-5d849c33e077)
+![image](https://github.com/user-attachments/assets/d3979971-9e95-4f42-8737-433fdaa45c05)
+
+### Blender  
+![image](https://github.com/user-attachments/assets/fef0e628-6421-4b6d-ac76-9dfa3764a6e6)
+
+
