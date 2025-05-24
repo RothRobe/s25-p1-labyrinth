@@ -16,6 +16,18 @@ LevelController = NodePath("..")
 LevelTileSetDictionary = ExtResource("3_rk4cn")
 metadata/_custom_type_script = "uid://dbfcdlgxsvnmg"
 
-[node name="Level3D" type="Node3D" parent="."]
+[node name="Level3D" type="Node3D" parent="." node_paths=PackedStringArray("TileParent", "SpawnParent", "GoalParent", "ItemsParent3D")]
 script = ExtResource("4_4emlr")
+TileParent = NodePath("Node3D_TIles")
+SpawnParent = NodePath("Node3D_Spawn")
+GoalParent = NodePath("Node3D_Goal")
+ItemsParent3D = NodePath("Node3D_Items")
 metadata/_custom_type_script = "uid://dfj1o8ljrkqkk"
+
+[node name="Node3D_TIles" type="Node3D" parent="Level3D"]
+
+[node name="Node3D_Spawn" type="Node3D" parent="Level3D"]
+
+[node name="Node3D_Goal" type="Node3D" parent="Level3D"]
+
+[node name="Node3D_Items" type="Node3D" parent="Level3D"]
