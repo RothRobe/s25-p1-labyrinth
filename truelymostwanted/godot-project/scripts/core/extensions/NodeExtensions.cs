@@ -12,4 +12,16 @@ public static class NodeExtensions
         childrenOfType = children.OfType<T>().ToList();
         return childrenOfType.Count;
     }
+
+    public static int QueueFreeChildren(this Node node)
+    {
+        var children = node.GetChildren();
+        var count = children.Count;
+        for (int i = children.Count - 1; i >= 0; i--)
+        {
+            node.RemoveChild(children[i]);
+            children[i].QueueFree();
+        }
+        return count;
+    }
 }
