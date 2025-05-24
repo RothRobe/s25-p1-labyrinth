@@ -1,5 +1,7 @@
 ﻿using Godot;
 using LabyrinthExplorer3D.scripts.core.functions;
+using LabyrinthExplorer3D.scripts.core.menus;
+using LabyrinthExplorer3D.scripts.game.functions;
 
 namespace LabyrinthExplorer3D.scripts.game.abilties;
 
@@ -19,11 +21,15 @@ public partial class Player3dPauseAbility : Player3dAbility
         var tree = GetTree();
         if (tree.IsPaused())
         {
-            StartGameFunction.Execute(node: this);
+            ContinueGameFunction.Execute(node: this);
+            EnableGameUiFunction.Execute(node: this);
+            MenuController.Instance.ToggleCurrentMenu(false);
         }
         else
         {
-            StopGameFunction.Execute(node: this);
+            PauseGameFunction.Execute(node: this);
+            DisableGameUiFunction.Execute(node: this);
+            MenuController.Instance.ToggleCurrentMenu(true);
         }
     }
 }
