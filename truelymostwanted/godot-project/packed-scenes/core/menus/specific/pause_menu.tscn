@@ -1,25 +1,35 @@
-[gd_scene load_steps=2 format=3 uid="uid://bfwvu6qkkusc4"]
+[gd_scene load_steps=3 format=3 uid="uid://bfwvu6qkkusc4"]
 
 [ext_resource type="PackedScene" uid="uid://bxxx4vmewps02" path="res://packed-scenes/core/menus/menu.tscn" id="1_typtd"]
+[ext_resource type="Script" uid="uid://uqtd11u1eiw8" path="res://scripts/core/functions/StartGameFunction.cs" id="2_83u5v"]
 
 [node name="Pause" instance=ExtResource("1_typtd")]
 
-[node name="MenuNavButton" parent="Control/VBoxContainer" index="0"]
+[node name="MenuNavButton" parent="Control/VBoxContainer" index="0" node_paths=PackedStringArray("Functions")]
 visible = false
+Functions = []
 
-[node name="MenuNavButton2" parent="Control/VBoxContainer" index="1"]
+[node name="MenuNavButton2" parent="Control/VBoxContainer" index="1" node_paths=PackedStringArray("Functions")]
 text = "Continue"
 TargetMenuName = "Pause"
 TargetVisibility = false
+Functions = [NodePath("StartGameFunction")]
 
-[node name="MenuNavButton3" parent="Control/VBoxContainer" index="2"]
+[node name="StartGameFunction" type="Node" parent="Control/VBoxContainer/MenuNavButton2" index="1"]
+script = ExtResource("2_83u5v")
+metadata/_custom_type_script = "uid://uqtd11u1eiw8"
+
+[node name="MenuNavButton3" parent="Control/VBoxContainer" index="2" node_paths=PackedStringArray("Functions")]
 text = "Options"
 TargetMenuName = "Options"
+Functions = []
 
-[node name="MenuNavButton4" parent="Control/VBoxContainer" index="3"]
+[node name="MenuNavButton4" parent="Control/VBoxContainer" index="3" node_paths=PackedStringArray("Functions")]
 text = "Main Menu"
 TargetMenuName = "Main"
+Functions = []
 
-[node name="MenuNavButton5" parent="Control/VBoxContainer" index="4"]
+[node name="MenuNavButton5" parent="Control/VBoxContainer" index="4" node_paths=PackedStringArray("Functions")]
 text = "Quit Game"
 TargetMenuName = "Quit"
+Functions = []
