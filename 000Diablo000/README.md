@@ -7,9 +7,9 @@ Im Rahmen dieser Aufgabe wurde ein begehbares 3D-Labyrinth erstellt, das mithilf
 
 ## 2. Engine-Überblick: Godot 4.4.1
 
-Godot ist eine freie, open-source Game Engine, die sowohl 2D- als auch 3D-Spiele unterstützt.  
+Godot ist eine open-source Game Engine, die sowohl 2D- als auch 3D-Spiele unterstützt.  
 **Wichtige Eigenschaften der Engine:**  
-- **Programmiersprache**: GDScript (Python-ähnlich), C#, C++ (optional)  
+- **Programmiersprachen**: GDScript (Python-ähnlich), C#, C++ (optional)  
 - **Node-basiertes System**: Jede Szene ist eine Baumstruktur aus Nodes  
 - **Cross-Platform**: Export auf Web, Windows, Linux, macOS, Android, iOS  
 - **Editor-integriert**: Echtzeit-Vorschau, Shader-Editor, Visual Script, Debugger  
@@ -23,7 +23,7 @@ Die Szenenstruktur basiert auf einer Hauptszene namens `Game`, die alle relevant
 
 ### 3.1 Aufbau der Szene `Game`
 
-Die Szene `Game` enthält u. a. folgende Elemente:
+Die Szene `Game` enthält folgende Elemente:
 ```
 Game (Node3D)
 ├── LevelLoader (Node)           → Lädt die PNG-Karte und instanziiert die passenden Blöcke dynamisch
@@ -62,7 +62,7 @@ Hinweis zur Architektur:
 
 ### 3.2 Spielerstruktur (`NewPlayer`)
 
-Die Steuerung des Spielers erfolgt über ein First-Person-Controller-Modell mit Drehachsen für Kamera und Licht. Godot liefert eine CharacterBody3D Node inkl. Template um die Steuerung des Players zu erleichtern:
+Die Steuerung des Spielers erfolgt über ein First-Person-Controller-Modell mit Drehachsen für Kamera und Licht. Godot liefert eine CharacterBody3D Node inkl. Template, um die Steuerung des Players zu erleichtern:
 
 ```
 NewPlayer (CharacterBody3D)
@@ -102,7 +102,7 @@ Dieses Skript steuert den **beweglichen Spieler-Charakter** auf Basis von `Chara
 
 ---
 
-### `goal.gd` – Zielerkennung
+### `goal.gd` – Zielerkennung (Work in Progress)
 
 Einfaches Skript, das an ein `Area3D` gebunden ist, um zu erkennen, **wann der Spieler das Ziel erreicht**.
 
@@ -140,7 +140,7 @@ Die Umsetzung von echtem Ray Tracing war in Godot nicht praktikabel, da keine st
 
 Trotz dieser Einschränkung hat sich die Godot Engine als äußerst leistungsfähig erwiesen. Die Kombination aus modularer Node-Struktur, einfacher Skriptanbindung und aktiver Community macht sie zu einer hervorragenden Wahl – auch für 3D-Projekte. Dank Vulkan-Unterstützung ist es nur eine Frage der Zeit, bis auch echtes Ray Tracing vollständig integriert ist. Ich werde Godot definitiv weiterhin nutzen.
 
-Ich habe einige weitere Materials und Tests im Sourcecode welche ich für mehr Abwechslung und neuen Mechaniken einbauen wollte. Allerdings konnte ich diese nicht bis zu Abgabe vervollständigen. Es sollten noch kleine Wände, Plattformen, ein Zielsegment mit notification (existiert, aber ohne Benachrichtigung) und richtige Spiegel, Blender-Model import (Im Game enthalten, aber Textur ein wenig falsch), welche alles ohne den Spieler gespiegelt hatte (Einstellungen verloren und kein Backup - nur ein Screenshot existiert noch).
+Ich habe einige weitere Materials und Tests im Sourcecode welche ich für mehr Abwechslung und neuen Mechaniken einbauen wollte. Allerdings konnte ich diese nicht bis zur Abgabe vervollständigen. Es sollten noch kleine Wände, Plattformen, ein Zielsegment mit notification (existiert, aber ohne Benachrichtigung), richtige Spiegel, Blender-Model import (Im Game enthalten, aber Textur ein wenig falsch), welcher die Umgebung, aber ohne Spieler, gespiegelt hat (Einstellungen verloren und kein Backup - nur ein Screenshot existiert noch).
 
 ## Demo – 3D-Labyrinth
 
