@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://bfwvu6qkkusc4"]
+[gd_scene load_steps=4 format=3 uid="uid://bfwvu6qkkusc4"]
 
 [ext_resource type="PackedScene" uid="uid://bxxx4vmewps02" path="res://packed-scenes/core/menus/menu.tscn" id="1_typtd"]
 [ext_resource type="Script" uid="uid://uqtd11u1eiw8" path="res://scripts/core/functions/StartGameFunction.cs" id="2_83u5v"]
+[ext_resource type="Script" uid="uid://csa5rqixk8mpt" path="res://scripts/game/functions/DestroyLevelFunction.cs" id="3_dk837"]
 
 [node name="Pause" instance=ExtResource("1_typtd")]
 
@@ -27,7 +28,11 @@ Functions = []
 [node name="MenuNavButton4" parent="Control/VBoxContainer" index="3" node_paths=PackedStringArray("Functions")]
 text = "Main Menu"
 TargetMenuName = "Main"
-Functions = []
+Functions = [NodePath("DestroyLevelFunction")]
+
+[node name="DestroyLevelFunction" type="Node" parent="Control/VBoxContainer/MenuNavButton4" index="1"]
+script = ExtResource("3_dk837")
+metadata/_custom_type_script = "uid://csa5rqixk8mpt"
 
 [node name="MenuNavButton5" parent="Control/VBoxContainer" index="4" node_paths=PackedStringArray("Functions")]
 text = "Quit Game"
