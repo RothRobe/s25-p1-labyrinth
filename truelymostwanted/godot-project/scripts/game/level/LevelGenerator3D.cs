@@ -1,12 +1,16 @@
 ﻿using System;
+using System.IO;
 using Godot;
 using Godot.Collections;
+using LabyrinthExplorer3D.scripts.game.player;
 
 namespace LabyrinthExplorer3D.scripts.game.level;
 
 [GlobalClass]
 public partial class LevelGenerator3D : Node3D
 {
+    public static LevelGenerator3D Instance { get; private set; }
+    
     [Flags]
     public enum Neighbours
     {
@@ -33,29 +37,49 @@ public partial class LevelGenerator3D : Node3D
 
     [Export] public LevelController3D LevelController;
     [Export] public LevelTileSetDictionary LevelTileSetDictionary;
+
+    [Export] public Color EmptyTileColor = Colors.Black;
+    [Export] public Color RegularTileColor = Colors.White;
+    [Export] public Color GlasTileColor = Colors.Gray;
+    [Export] public Color SpawnColor = Colors.Green;
+    [Export] public Color GoalColor = Colors.Red;
+    [Export] public Color ItemColor = Colors.Blue;
     
     public bool IsEmptyField(Image img, Vector2I imgSize, int x, int y)
     {
-        return img.GetPixel(x, y) == Colors.Black;
+        return img.GetPixel(x, y) == EmptyTileColor;
     }
+    public bool IsSpawnField(Image img, Vector2I imgSize, int x, int y)
+    {
+        return img.GetPixel(x, y) == SpawnColor;
+    }
+    public bool IsGoalField(Image img, Vector2I imgSize, int x, int y)
+    {
+        return img.GetPixel(x, y) == GoalColor;
+    }
+    public bool IsItemField(Image img, Vector2I imgSize, int x, int y)
+    {
+        return img.GetPixel(x, y) == ItemColor;
+    }
+    
     public Neighbours GetNeighbours(Image img, Vector2I imgSize, int x, int y, bool skipCheck = true)
     {
         var neighbours = Neighbours.None;
         
         var left = new Vector2I(x - 1, y);
-        if(left.X >= 0 && img.GetPixel(left.X, left.Y) == Colors.White)
+        if(left.X >= 0 && img.GetPixel(left.X, left.Y) != EmptyTileColor)
             neighbours |= Neighbours.W;
         
         var right = new Vector2I(x + 1, y);
-        if(right.X < imgSize.X && img.GetPixel(right.X, right.Y) == Colors.White)
+        if(right.X < imgSize.X && img.GetPixel(right.X, right.Y) != EmptyTileColor)
             neighbours |= Neighbours.E;
         
         var up = new Vector2I(x, y - 1);
-        if(up.Y >= 0 && img.GetPixel(up.X, up.Y) == Colors.White)
+        if(up.Y >= 0 && img.GetPixel(up.X, up.Y) != EmptyTileColor)
             neighbours |= Neighbours.N;
         
         var down = new Vector2I(x, y + 1);
-        if(down.Y < imgSize.Y && img.GetPixel(down.X, down.Y) == Colors.White)
+        if(down.Y < imgSize.Y && img.GetPixel(down.X, down.Y) != EmptyTileColor)
             neighbours |= Neighbours.S;
         
         return neighbours;
@@ -85,14 +109,14 @@ public partial class LevelGenerator3D : Node3D
         var canGetTile = tileSet.TileMeshes.TryGetValue(meshName, out mesh);
         return canGetTile;
     }
-    public bool TryInstantiateMesh(string nodeName, Vector3 globalPos, Mesh mesh)
+    private bool _TryInstantiateMesh(Level3D level, Vector3 globalPos, Mesh mesh)
     {
         try
         {
             var meshInstance = new MeshInstance3D();
             meshInstance.Mesh = mesh;
             meshInstance.CreateTrimeshCollision();
-            LevelController.CurrentLevel.AddChild(meshInstance);
+            level.TileParent.AddChild(meshInstance);
             meshInstance.GlobalPosition = globalPos;
             return true;
         }
@@ -102,26 +126,30 @@ public partial class LevelGenerator3D : Node3D
             return false;
         }
     }
-    
-    public bool TryGenerateLevel3D(string pngFilePath)
+
+
+    public bool TryDestroyLevel3D()
+    {
+        //(0) Get Level
+        var level = LevelController.CurrentLevel;
+        
+        //(1) Clear level
+        level.Clear();
+
+        return true;
+    }
+
+    private bool _TryGenerateLevel3D(Texture2D texture, Image img)
     {
         try
         {
-            //(1) Read all children
-            var children = LevelController.CurrentLevel.GetChildren();
+            //(0) Get Level
+            var level = LevelController.CurrentLevel;
             
-            //(2) Remove all children
-            for (int i = children.Count - 1; i >= 0; i--)
-            {
-                LevelController.CurrentLevel.RemoveChild(children[i]);
-                children[i].QueueFree();
-            }
+            //(1) Destroy previous level
+            TryDestroyLevel3D();
             
-            //(3) Load the texture as image
-            var texture2D = ResourceLoader.Load<Texture2D>(pngFilePath);
-            var img = texture2D.GetImage();
-            
-            //(4) Iterate over the pixel and create the level
+            //(2) Iterate over the pixel and create the level
             var imgSize = img.GetSize();
             for (int y = 0; y < imgSize.Y; y++)
             {
@@ -136,9 +164,16 @@ public partial class LevelGenerator3D : Node3D
                     if (!TryGetMesh(typeName, meshName, out var mesh)) 
                         continue;
                     var position = new Vector3(x * 4, 0, y * 4);
-                    TryInstantiateMesh(meshName, position, mesh);
+                    _TryInstantiateMesh(level, position, mesh);
+
+                    if (IsSpawnField(img, imgSize, x, y))
+                        PlayerController3D.Instance.CurrentPlayer.GlobalPosition = position + new Vector3(0, 3, 0);
+                    
                 }
             }
+            
+            level.LevelTexture = texture;
+            level.LevelImage = img;
             return true;
         }
         catch (Exception exception)
@@ -147,11 +182,75 @@ public partial class LevelGenerator3D : Node3D
             return false;
         }
     }
+    public bool TryGenerateLevel3D(Image img)
+    {
+        if (img == null)
+            return false;
+
+        var texture = ImageTexture.CreateFromImage(img);
+        return _TryGenerateLevel3D(texture, img);
+    }
+    public bool TryGenerateLevel3D(Texture2D texture2D)
+    {
+        if (texture2D == null)
+            return false;
+        
+        var image = texture2D.GetImage();
+        return _TryGenerateLevel3D(texture2D, image);
+    }
+    public bool TryGenerateLevel3D(string levelFilePath)
+    {
+        var canLoad = TryLoadLevel(levelFilePath, out var texture2D, out var image);
+        if (!canLoad)
+            return false;
+        return _TryGenerateLevel3D(texture2D, image);
+    }
+
+    public bool TryGenerateLevel3D()
+    {
+        var lvl = LevelController.CurrentLevel;
+        var texture = lvl.LevelTexture;
+        var image = lvl.LevelImage;
+        return _TryGenerateLevel3D(texture, image);
+    }
+
+    public bool TryLoadLevel(string levelFilePath, out Texture2D levelTexture, out Image levelImage)
+    {
+        try
+        {
+            if (levelFilePath.StartsWith("res://") || levelFilePath.StartsWith("uid://"))
+            {
+                levelTexture = ResourceLoader.Load<Texture2D>(levelFilePath);
+                levelImage = levelTexture.GetImage();
+            }
+            else if (levelFilePath.StartsWith("user://"))
+            {
+                var globalizedPath = ProjectSettings.GlobalizePath(levelFilePath);
+                levelImage = Image.LoadFromFile(globalizedPath);
+                levelTexture = ImageTexture.CreateFromImage(levelImage);
+            }
+            else
+            {
+                levelImage = Image.LoadFromFile(levelFilePath);
+                levelTexture = ImageTexture.CreateFromImage(levelImage);
+            }
+
+            return true;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            levelImage = null;
+            levelTexture = null;
+            return false;
+        }
+    }
 
     public override void _Ready()
     {
         base._Ready();
-        var canLoad = TryGenerateLevel3D("res://resources/textures/LVL_0.png");
-        GD.Print($"Can Load: {canLoad}");
+        Instance = this;
+        //var canLoad = TryGenerateLevel3D("res://resources/textures/LVL_0.png");
+        //GD.Print($"Can Load: {canLoad}");
     }
 }
