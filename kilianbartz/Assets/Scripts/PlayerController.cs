@@ -9,16 +9,14 @@ public class PlayerController : MonoBehaviour
     public float sensitivity = 2f;
     public float zoomSpeed = 5f;
 
+    private float _rotationX = 180f;
+    private float _rotationY = 0f;
+
     // Walk mode parameters
     public float walkSpeed = 5f;
     public float gravity = -9.81f;
     public float jumpHeight = 2f;
     public float pushForce = 15f;
-
-    private float _currentSpeed;
-    private float _rotationY;
-    private float _rotationX;
-    private bool _isFlyMode = false;
     private Vector3 _velocity;
     private CharacterController _controller;
 
@@ -40,6 +38,7 @@ public class PlayerController : MonoBehaviour
         {
             flashlight.enabled = startWithFlashlightOn;
         }
+
     }
 
     void Update()
@@ -48,23 +47,21 @@ public class PlayerController : MonoBehaviour
         {
             return;
         }
-        HandleModeToggle();
-
-        if (_isFlyMode)
-        {
-            HandleFlyMode();
-        }
-        else
-        {
-            HandleWalkMode();
-        }
         HandleFlashlight();
+
+        // character movement
+        HandleRotation();
+        HandleWalkMovement();
+        HandleJump();
+
+
         if (MinimapCamera != null)
         {
             MinimapCamera.transform.position = transform.position + new Vector3(0, 6, 0);
             MinimapCamera.transform.rotation = Quaternion.Euler(90, transform.eulerAngles.y, 0);
         }
     }
+
     public void EnableControls(bool enable)
     {
         enabled = enable;
@@ -77,51 +74,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void HandleModeToggle()
-    {
-        if (Input.GetKeyDown(KeyCode.V))
-        {
-            _isFlyMode = !_isFlyMode;
-            Cursor.lockState = _isFlyMode ? CursorLockMode.None : CursorLockMode.Locked;
-            Cursor.visible = _isFlyMode;
-
-            if (!_isFlyMode)
-            {
-                _velocity = Vector3.zero;
-            }
-        }
-    }
-
-    void HandleFlyMode()
-    {
-        if (Input.GetMouseButtonDown(1))
-        {
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-        }
-
-        if (Input.GetMouseButtonUp(1))
-        {
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-        }
-
-        if (Input.GetMouseButton(1))
-        {
-            HandleRotation();
-            HandleFlyMovement();
-        }
-
-        HandleSpeed();
-    }
-
-    void HandleWalkMode()
-    {
-        HandleRotation();
-        HandleWalkMovement();
-        HandleJump();
-    }
-
     void HandleRotation()
     {
         _rotationX += Input.GetAxis("Mouse X") * sensitivity;
@@ -129,24 +81,6 @@ public class PlayerController : MonoBehaviour
         _rotationY = Mathf.Clamp(_rotationY, -90f, 90f);
 
         transform.rotation = Quaternion.Euler(_rotationY, _rotationX, 0f);
-    }
-
-    void HandleFlyMovement()
-    {
-        Vector3 move = Vector3.zero;
-        _currentSpeed = Input.GetKey(KeyCode.LeftShift) ? moveSpeed * fastMultiplier : moveSpeed;
-
-        if (Input.GetKey(KeyCode.W)) move += transform.forward;
-        if (Input.GetKey(KeyCode.S)) move -= transform.forward;
-        if (Input.GetKey(KeyCode.D)) move += transform.right;
-        if (Input.GetKey(KeyCode.A)) move -= transform.right;
-        if (Input.GetKey(KeyCode.E)) move += Vector3.up;
-        if (Input.GetKey(KeyCode.Q)) move -= Vector3.up;
-
-        if (move != Vector3.zero)
-        {
-            transform.position += move.normalized * _currentSpeed * Time.deltaTime;
-        }
     }
 
     void HandleWalkMovement()

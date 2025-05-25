@@ -52,6 +52,8 @@ public class GameManager : MonoBehaviour
         Instance.loseText.gameObject.SetActive(true);
         Instance.stepSound.Stop();
         Instance.stepSound.enabled = false;
+        // look at the enemy
+        Instance.mainCamera.transform.LookAt(Instance.enemy.transform);
     }
     public void Win(float timeTaken)
     {

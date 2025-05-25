@@ -192,16 +192,16 @@ public class LevelGenerator : MonoBehaviour
                 }
                 if (prefab != null)
                 {
-                    GameObject tile = Instantiate(prefab, new Vector3(xGap * x, height, zGap * y), rotation);
+                    GameObject tile = Instantiate(prefab, new Vector3(xGap * x, height, zGap * -y), rotation);
                     tile.transform.parent = transform; // Set the parent to the LevelGenerator object
                     if (Random.Range(0, 100) < candlePercentage)
                     {
-                        tile = Instantiate(candlePrefab, new Vector3(xGap * x + 0.5f, 0, zGap * y - .5f), Quaternion.identity);
+                        tile = Instantiate(candlePrefab, new Vector3(xGap * x + 0.5f, 0, zGap * -y - .5f), Quaternion.identity);
                         tile.transform.parent = transform; // Set the parent to the LevelGenerator object
                     }
                 }
                 xMax = xGap * x;
-                zMax = zGap * y;
+                zMax = zGap * -y;
             }
         }
         float goalX = Random.Range(xMax, 0);
