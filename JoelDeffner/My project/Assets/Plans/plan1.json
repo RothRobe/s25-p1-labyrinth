@@ -1,0 +1,22 @@
+{
+  "wallHeight": 3,
+  "squareSize": 2,
+  "labyrinthX": 4,
+  "labyrinthZ": 3,
+  "floors": [
+    ["stone", "carpet", "stone", "stone"],
+    ["stone", "water", "carpet", "stone"],
+    ["stone", "stone", "stone", "carpet"]
+  ],
+  "wallsX": [
+    ["reflective", "transparent", null, "absorbent"],
+    ["reflective", null, null, "reflective"],
+    ["absorbent", null, null, "transparent"],
+    ["reflective", "reflective", "absorbent", null]
+  ],
+  "wallsZ": [
+    ["reflective", null, "transparent", "reflective"],
+    ["transparent", null, null, "reflective"],
+    ["absorbent", null, null, "transparent"]
+  ]
+}

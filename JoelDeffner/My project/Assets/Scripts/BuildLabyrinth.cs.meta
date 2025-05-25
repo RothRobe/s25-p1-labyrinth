@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 2ce2c15fba9966a40ba7fe7182a79869
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - wallPrefab: {fileID: 6709100540256862343, guid: 29b2f233be6002d4e8549e29381818ca, type: 3}
+  - pillarPrefab: {fileID: 4878650188432900325, guid: c9b377759d440964a8f902d70410afb3, type: 3}
+  - planJson: {fileID: 4900000, guid: 5cd160a2ce411ad438555c55cc8925b7, type: 3}
+  - absorbentMaterial: {fileID: -1255982633427224767, guid: cc643783bd94cb5479903260c9fc6a72, type: 3}
+  - reflectiveMaterial: {fileID: 2100000, guid: 1b49bc478b731554cbeebd1614c9a5d3, type: 2}
+  - transparentMaterial: {fileID: 2100000, guid: f35de490fa19a4b46959b30a71cd02e2, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
