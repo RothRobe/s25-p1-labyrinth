@@ -116,7 +116,7 @@ func create_wall_lantern(lantern_data):
 	var lantern = OmniLight3D.new()
 	lantern.position = Vector3(lantern_data["position"]["x"], 2.2, lantern_data["position"]["z"])
 	lantern.name = "Lantern-"+str(lantern.position)
-	lantern.light_energy = 0.1
+	lantern.light_energy = 0.2
 	if lantern_data["direction"] == "north":
 		lantern.rotation_degrees = Vector3(0,270,0)
 	elif lantern_data["direction"] == "west":
@@ -125,9 +125,9 @@ func create_wall_lantern(lantern_data):
 		lantern.rotation_degrees = Vector3(0,90,0)
 	
 	var lantern_scene = preload("res://lamp.tscn").instantiate()
-	lantern_scene.position = Vector3(0.188, 0.155, 0.007)
-	lantern_scene.rotation_degrees.y = 15.9
-	lantern_scene.scale = Vector3(0.2, 0.2, 0.2)
+	lantern_scene.position = Vector3(0.165, 0.155, 0.007)
+	lantern_scene.rotation_degrees.y = 17
+	lantern_scene.scale = Vector3(0.175, 0.175, 0.175)
 	
 	add_as_child_to_scene(lantern, self)
 	add_as_child_to_scene(lantern_scene, lantern)

@@ -6,7 +6,7 @@ extends Node3D
 @export var generate_labyrinth_size_x: int = 13
 @export var generate_labyrinth_size_z: int = 13
 
-@export_tool_button("Regenerate labyrinth walls JSON file!") var action2 = generate_labyrinth
+@export_tool_button("Regenerate labyrinth JSON file!") var action2 = generate_labyrinth
 
 func generate_labyrinth():
 	generate_labyrinth_from_size(generate_labyrinth_size_x, generate_labyrinth_size_z)
@@ -358,6 +358,7 @@ func group_wall_segments(individual_walls: Array) -> Array:
 		
 		# Single block wall (no adjacent walls in straight line)
 		used_positions[key] = true
+		wall.material = material
 		wall_segments.append(wall)
 	
 	return wall_segments
