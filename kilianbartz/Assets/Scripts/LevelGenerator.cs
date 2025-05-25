@@ -55,9 +55,6 @@ public class LevelGenerator : MonoBehaviour
             case Level.Maze2:
                 path += "maze2.txt";
                 break;
-            case Level.Sonic:
-                path += "sonic.txt";
-                break;
             default:
                 Debug.LogWarning("Unknown level type: " + level);
                 return;
@@ -228,5 +225,5 @@ public class LevelGenerator : MonoBehaviour
 }
 public enum Level
 {
-    House, Owl, Maze1, Maze2, Sonic
+    House, Owl, Maze1, Maze2
 }
