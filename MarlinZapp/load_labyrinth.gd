@@ -61,6 +61,7 @@ func create_wall_segment(wall_data):
 	var mesh_instance = MeshInstance3D.new()
 	var mesh = BoxMesh.new()
 	mesh.size = get_size_from_json(wall_data)
+	mesh.add_uv2 = true
 	mesh_instance.mesh = mesh
 	
 	var material = get_material_by_type(material_type)
@@ -117,6 +118,7 @@ func create_wall_lantern(lantern_data):
 	lantern.position = Vector3(lantern_data["position"]["x"], 2.2, lantern_data["position"]["z"])
 	lantern.name = "Lantern-"+str(lantern.position)
 	lantern.light_energy = 0.2
+	lantern.shadow_enabled = true
 	if lantern_data["direction"] == "north":
 		lantern.rotation_degrees = Vector3(0,270,0)
 	elif lantern_data["direction"] == "west":
