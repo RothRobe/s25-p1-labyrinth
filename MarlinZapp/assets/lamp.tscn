@@ -1,0 +1,63 @@
+[gd_scene load_steps=9 format=3 uid="uid://463ym1bk0o1n"]
+
+[ext_resource type="PackedScene" uid="uid://n1rv70o7qlny" path="res://assets/lamp.FBX" id="1_vxcd3"]
+[ext_resource type="Texture2D" uid="uid://cg4g0m2y8d0ch" path="res://assets/sprite/wood.jpg" id="2_qfipa"]
+[ext_resource type="Texture2D" uid="uid://c8g58ehow65i" path="res://assets/sprite/metal.jpg" id="3_00ij4"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n7rru"]
+albedo_texture = ExtResource("2_qfipa")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b6kmw"]
+albedo_texture = ExtResource("2_qfipa")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dd1hs"]
+albedo_texture = ExtResource("3_00ij4")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y1vcq"]
+albedo_texture = ExtResource("2_qfipa")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qcyx0"]
+albedo_texture = ExtResource("3_00ij4")
+
+[node name="lamp" instance=ExtResource("1_vxcd3")]
+
+[node name="Line001" parent="." index="0"]
+transform = Transform3D(-0.225962, -1.20785e-07, -0.741373, 0, 0.775044, -1.26271e-07, 0.741373, -3.6814e-08, -0.225962, 1.85455, 0.914911, 0.520201)
+material_override = SubResource("StandardMaterial3D_n7rru")
+
+[node name="Line002" parent="." index="1"]
+transform = Transform3D(-0.664501, 1.84392e-08, 0.216249, -2.45841e-15, 0.560697, -9.13505e-08, -0.193074, -6.3462e-08, -0.744264, 0.329633, 1.04987, -0.0336313)
+material_override = SubResource("StandardMaterial3D_b6kmw")
+
+[node name="Box001" parent="." index="2"]
+transform = Transform3D(-0.127134, -0.956556, -1.78814e-07, -1.29957e-08, 2.38419e-07, -1, 0.41712, -0.291548, 0, -0.895007, -0.445472, -0.306293)
+material_override = SubResource("StandardMaterial3D_dd1hs")
+
+[node name="Pyramid001" parent="." index="3"]
+transform = Transform3D(-0.472033, 1.54872, 0, 0, 0, 1.61906, 1.54872, 0.472033, 0, -0.88695, -0.415835, -0.292979)
+
+[node name="Pyramid002" parent="." index="4"]
+transform = Transform3D(-0.472033, 1.54872, 0, 0, 0, 1.61906, 1.54872, 0.472033, 0, -0.88756, -0.415835, -0.290961)
+material_override = SubResource("StandardMaterial3D_y1vcq")
+
+[node name="Box002" parent="." index="5"]
+transform = Transform3D(-0.127134, -0.956556, -1.78814e-07, -1.29957e-08, 2.38419e-07, -1, 0.41712, -0.291548, 0, -0.894717, -0.450284, -0.307237)
+
+[node name="Torus001" parent="." index="6"]
+transform = Transform3D(5.96046e-08, 0.750737, -0.660601, 1, -1.19209e-07, 5.96046e-08, 0, -0.660601, -0.750737, -0.873904, 0.460306, -0.322288)
+
+[node name="Torus002" parent="." index="7"]
+transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, -1.42327, -0.018136, -0.0437899)
+
+[node name="Torus003" parent="." index="8"]
+transform = Transform3D(0, 0.171843, -0.563808, 0.589414, 0, 1.75659e-08, 1.75659e-08, -0.563808, -0.171843, -0.89374, 0.0601425, -0.286283)
+
+[node name="Cone001" parent="." index="9"]
+transform = Transform3D(-0.343152, 0.93928, 0, 0, 0, 1, 0.93928, 0.343152, 0, -0.888415, -0.175297, -0.300325)
+
+[node name="Circle002" parent="." index="10"]
+transform = Transform3D(-0.130102, -0.0166369, -0.420695, -0.00491533, 0.440353, -0.0158942, 0.420995, -1.31329e-08, -0.130195, 1.86455, 1.35373, 0.427179)
+material_override = SubResource("StandardMaterial3D_qcyx0")
+
+[node name="Circle003" parent="." index="11"]
+transform = Transform3D(-0.0950071, -8.02524e-08, -0.492586, 0, 0.501664, -8.17315e-08, 0.492586, -1.54786e-08, -0.0950071, 1.85338, 0.125217, 0.430279)
