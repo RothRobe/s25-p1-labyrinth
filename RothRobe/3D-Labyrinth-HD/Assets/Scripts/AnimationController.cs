@@ -3,19 +3,23 @@ using UnityEngine.InputSystem;
 
 public class AnimationController : MonoBehaviour
 {
-    private Animator animator;
+    private Animator _animator;
     private static readonly int CrawlTrigger = Animator.StringToHash("Crawl Trigger");
+    private static readonly int CrawlEndTrigger = Animator.StringToHash("Crawl End Trigger");
     private static readonly int WalkTrigger = Animator.StringToHash("Walk Trigger");
     private static readonly int IdleTrigger = Animator.StringToHash("Idle Trigger");
+    private static readonly int RunTrigger = Animator.StringToHash("Run Trigger");
+    private static readonly int CryTrigger = Animator.StringToHash("Cry Trigger");
+    private bool _isCrawling = false;
 
     void Start()
     {
-        animator = GetComponent<Animator>();
-        Debug.Log(animator);
+        _animator = GetComponent<Animator>();
     }
 
     void Update()
     {
+        /*
         if (Keyboard.current.fKey.wasPressedThisFrame)
         {
             StartIdleAnimation();
@@ -30,24 +34,65 @@ public class AnimationController : MonoBehaviour
         {
             StartCrawlAnimation();
         }
-        
+        */
     }
 
-    void StartIdleAnimation()
+    public void StartIdleAnimation()
     {
         Debug.Log("Idle Trigger");
-        animator.SetTrigger(IdleTrigger);
+        _animator.SetTrigger(IdleTrigger);
+        if (_isCrawling)
+        {
+            _isCrawling = false;
+            _animator.SetTrigger(CrawlEndTrigger);
+        }
     }
 
-    void StartWalkAnimation()
+    public void StartWalkAnimation()
     {
-        Debug.Log("Walk Trigger");
-        animator.SetTrigger(WalkTrigger);
+        //Debug.Log("Walk Trigger");
+        _animator.SetTrigger(WalkTrigger);
+        if (_isCrawling)
+        {
+            _isCrawling = false;
+            _animator.SetTrigger(CrawlEndTrigger);
+        }
     }
 
-    void StartCrawlAnimation()
+    public void StartCrawlAnimation()
     {
         Debug.Log("Crawl Trigger");
-        animator.SetTrigger(CrawlTrigger);
+        _animator.SetTrigger(CrawlTrigger);
+        _isCrawling = true;
+    }
+
+    public void StartRunAnimation()
+    {
+        Debug.Log("Run Trigger");
+        _animator.SetTrigger(RunTrigger);
+        if (_isCrawling)
+        {
+            _isCrawling = false;
+            _animator.SetTrigger(CrawlEndTrigger);
+        }
+    }
+
+    public void StartCryingAnimation()
+    {
+        _animator.SetTrigger(CryTrigger);
+    }
+    
+    public bool IsAnimatorInState(string stateName)
+    {
+        AnimatorStateInfo info = _animator.GetCurrentAnimatorStateInfo(0);
+        return info.IsName(stateName);
+    }
+
+    public void ResetAllTriggers()
+    {
+        _animator.ResetTrigger(WalkTrigger);
+        _animator.ResetTrigger(CrawlTrigger);
+        _animator.ResetTrigger(IdleTrigger);
+        _animator.ResetTrigger(RunTrigger);
     }
 }
