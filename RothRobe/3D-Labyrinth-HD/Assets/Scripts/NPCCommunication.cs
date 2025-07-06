@@ -1,13 +1,14 @@
+using System;
 using System.Collections;
-using System.Text;
 using System.IO;
+using System.Linq;
+using OpenAI;
+using OpenAI.Models;
+using OpenAI.Responses;
 using UnityEngine;
-using UnityEngine.Networking;
 
 public class NPCCommunication : MonoBehaviour
 {
-    [Header("KI API URL")]
-    public string apiUrl = "http://localhost:5555"; // Hier die Uni-KI-URL eintragen
 
     [Header("Verweise")]
     public Transform npcTransform;
@@ -16,17 +17,17 @@ public class NPCCommunication : MonoBehaviour
     [Header("Update-Intervall")]
     public float updateInterval = 10f;
 
-    private bool initialized = false;
-
+    private bool _initialized;
     private NPCController _npcController;
-
+    private const string APIKey = "Hier Key einfügen :)";
     private void Start()
     {
         playerTransform = GameObject.Find("Player").transform;
         _npcController = GetComponent<NPCController>();
+
         // Initial einmal das Maze und Startpositionen schicken
         string mazeData = GetMazeString();
-        StartCoroutine(SendMazeInitToAI(mazeData));
+        SendMazeInitToAI(mazeData);
 
         // Danach in regelmäßigen Abständen nur Statusupdates senden
         StartCoroutine(StatusUpdateLoop());
@@ -37,24 +38,52 @@ public class NPCCommunication : MonoBehaviour
     /// </summary>
     private string GetMazeString()
     {
-        // TODO: Hier dein Maze als ASCII-String einfügen oder von deinem MazeLoader abrufen
         return string.Join("\n", File.ReadAllLines(GameObject.Find("MazeLoader").GetComponent<MazeLoader>().asciiFilePath));
     }
 
-    private IEnumerator SendMazeInitToAI(string asciiMaze)
+    private void SendMazeInitToAI(string asciiMaze)
     {
-        MazeInitData initData = new MazeInitData
-        {
-            maze = asciiMaze,
-            npcPosition = GetPositionStruct(npcTransform),
-            playerPosition = GetPositionStruct(playerTransform)
-        };
+        string prompt = 
+    "Du bist ein NPC in einem 3D-Labyrinth. Das Labyrinth ist aus einer ASCII-Textdatei generiert, in der:\n" +
+    "Die txt-Datei wird dir immer vollständig mitgeschickt. Jede Zeile stellt eine Z-Reihe dar.\n" +
+    "Die oberste Zeile in der ASCII-Datei entspricht Z=0, jede weitere Zeile erhöht Z um 1 (Z=1, Z=2 usw.).\n" +
+    "Die Zeichen in jeder Zeile repräsentieren die X-Positionen: Der linke Buchstabe ist X=0, der rechte Buchstabe ist X=mazeWidth-1.\n" +
+    "Die Y-Position ist immer konstant auf 1, da das Labyrinth nur auf einer Ebene liegt. Alle Koordinaten haben daher die Form X,1,Z.\n\n" +
+    "Die Bedeutungen der ASCII-Zeichen sind:\n" +
+    "- '#' steht für eine Wand, die nicht durchquert werden darf.\n" +
+    "- 'M' steht für eine metallische Wand (ebenfalls blockiert).\n" +
+    "- 'G' steht für Glas (blockiert, auch wenn durchsichtig).\n" +
+    "- '.' ist begehbarer Boden.\n" +
+    "- 'P' ist die Position des Spielers.\n" +
+    "- 'N' ist die Startposition des NPC.\n\n" +
+    "Die Koordinaten aller Zeichen mit '#', 'M' oder 'G' gelten als blockiert. Eine geplante Bewegung darf keine dieser Koordinaten durchqueren oder darauf enden.\n" +
+    "Die Bewegung erfolgt immer in einer geraden Linie vom Startpunkt zum Ziel – kein Teleportieren und kein Durchqueren blockierter Felder.\n\n" +
+    "Bevor du eine Bewegung planst, überprüfe, dass alle Zwischenpositionen zwischen Start- und Zielpunkt frei von blockierten Feldern sind.\n" +
+    "Du darfst frei handeln.\n" +
+    "Mögliche Aktionen, die du ausgeben darfst, sind:\n" +
+    "- {\"action\": \"walk\", \"target\": {\"x\": X, \"y\": 1, \"z\": Z}}\n" +
+    "- {\"action\": \"run\", \"target\": {\"x\": X, \"y\": 1, \"z\": Z}}\n" +
+    "- {\"action\": \"crawl\", \"target\": {\"x\": X, \"y\": 1, \"z\": Z}}\n" +
+    "- {\"action\": \"cry\"}\n" +
+    "- {\"action\": \"idle\"}\n\n" +
+    "Dabei gilt:\n" +
+    "- Die Aktionen walk, run und crawl MÜSSEN IMMER ein target haben. Du kannst diese Aktionen nicht ausführen, ohne eine target Position anzugeben!\n" +
+    "- Du darfst keine Aktion ausgeben, die dich durch Wände ('#') führt.\n" +
+    "- Gehe davon aus, dass (0,0,0) immer außerhalb des Spielfelds ist\n" +
+    "- Gib Bewegungen immer als JSON mit drei separaten Schlüsseln an: {\"x\": X, \"y\": 1, \"z\": Z}.\n" +
+    "- Verwende als target NICHT position als String wie \"target\": {\"position\": \"(X, Y, Z)\"}.\n" +
+    "- Wenn du dich bewegen möchtest, gib die Zielposition als ganzzahlige Koordinaten an.\n" +
+    "- Wenn du weinen oder idle bleiben willst, gib keine Zielposition an.\n" +
+    "- Ich sende dir regelmäßig die Position und Rotation deines Charakters, sowie die Position des Spielercharakters.\n" +
+    "- Gib die Antwort AUSSCHLIESSLICH als JSON-Objekt zurück, ohne zusätzliche Erklärungen oder Kommentare.\n" +
+    "- Antworte nicht im Fließtext.\n" +
+    "- Antworte immer genau in diesem JSON-Format, ohne jegliche Abweichung oder Zusätze.\n" +
+    "- Beginne, indem du mit einer Idle-Action antwortest!\n\n" +
+    "Hier ist das aktuelle Labyrinth:\n" + asciiMaze;
 
-        string jsonRequest = JsonUtility.ToJson(initData);
+        SendChatGPTRequest(prompt);
 
-        yield return SendPostRequest(jsonRequest);
-
-        initialized = true; // erst ab jetzt Statusupdates zulassen
+        _initialized = true;
     }
 
     private IEnumerator StatusUpdateLoop()
@@ -63,81 +92,81 @@ public class NPCCommunication : MonoBehaviour
         {
             yield return new WaitForSeconds(updateInterval);
 
-            if (initialized)
+            if (_initialized)
             {
-                StatusUpdateData statusData = new StatusUpdateData
-                {
-                    npcPosition = GetPositionStruct(npcTransform),
-                    npcRotation = GetRotationStruct(npcTransform),
-                    playerPosition = GetPositionStruct(playerTransform)
-                };
-
-                string jsonRequest = JsonUtility.ToJson(statusData);
-
-                yield return SendPostRequest(jsonRequest);
+                string prompt = "Aktueller Zustand:\n" +
+                                $"NPC Position: {FormatVector(npcTransform.position)}\n" +
+                                $"NPC Rotation: {FormatVector(npcTransform.eulerAngles)}\n" +
+                                $"Spieler Position: {FormatVector(playerTransform.position)}\n" +
+                                "Gib nur ein JSON mit einer der Aktionen: walk, run, crawl, cry, idle.\n" +
+                                "Die Aktionen walk, run und crawl MÜSSEN IMMER ein target haben.\n" +
+                                "Gib das target immer als JSON mit drei separaten Schlüsseln an: {\"x\": X, \"y\": 1, \"z\": Z}.\n" +
+                                "Benutze jede Aktion gleich oft! Du darfst die gleiche Aktion nicht zwei Mal in Folge wählen.";
+                SendChatGPTRequest(prompt);
             }
         }
     }
 
-    private IEnumerator SendPostRequest(string jsonRequest)
+    private async void SendChatGPTRequest(string promptContent)
     {
-        Debug.Log(jsonRequest);
-        using UnityWebRequest request = new UnityWebRequest(apiUrl, "POST");
-        byte[] jsonToSend = Encoding.UTF8.GetBytes(jsonRequest);
+        var api = new OpenAIClient(APIKey);
+        var request = new CreateResponseRequest(promptContent, Model.GPT4oMini); //Wiederholt ständig Walk
+        //var request = new CreateResponseRequest(promptContent, Model.GPT4_1_Nano); //Wiederholt ständig Walk
+        //var request = new CreateResponseRequest(promptContent, Model.GPT4_1_Mini); //Wiederholt ständig Walk
+        //var request = new CreateResponseRequest(promptContent, Model.O4Mini); //Benötigt verifizierte Organisation
+        //var request = new CreateResponseRequest(promptContent); //chatgpt-4o-latest Wiederholt ständig Walk
+        
+        var response = await api.ResponsesEndpoint.CreateModelResponseAsync(request);
+        var responseItem = response.Output.LastOrDefault();
 
-        request.uploadHandler = new UploadHandlerRaw(jsonToSend);
-        request.downloadHandler = new DownloadHandlerBuffer();
-        request.SetRequestHeader("Content-Type", "application/json");
-
-        Debug.Log("Sende Request an KI...");
-
-        yield return request.SendWebRequest();
-
-        if (request.result != UnityWebRequest.Result.Success)
+        if (responseItem == null)
         {
-            Debug.LogError($"Fehler beim Senden: {request.error}");
+            Debug.LogError("Keine gültige Antwort erhalten");
         }
         else
         {
-            string jsonResponse = request.downloadHandler.text;
-            Debug.Log("Antwort von KI: " + jsonResponse);
-
+            string cleanedAnswer = CleanJsonResponse(responseItem.ToString());
+            Debug.Log("GPT-Answer: " + cleanedAnswer);
             try
             {
-                ResponseData response = JsonUtility.FromJson<ResponseData>(jsonResponse);
-
-                if (response != null)
-                {
-                    ProcessAIResponse(response);
-                }
-                else
-                {
-                    Debug.LogWarning("Keine gültige Antwort erhalten.");
-                }
+                ResponseData responseData = JsonUtility.FromJson<ResponseData>(CleanJsonResponse(cleanedAnswer));
+                ProcessAIResponse(responseData);
             }
-            catch (System.Exception ex)
+            catch (Exception e)
             {
-                Debug.LogError($"Fehler beim Parsen: {ex.Message}");
+                Debug.Log("Es ist ein Fehler beim Parsen aufgetreten: " + e.Message);
             }
         }
     }
+    
+    private string CleanJsonResponse(string rawContent)
+    {
+        // Entferne mögliche ```json oder ``` Wrapper
+        rawContent = rawContent.Replace("```json", "").Replace("```", "").Trim();
+
+        // Optional: weitere Formatbereinigungen
+        return rawContent;
+    }
+
 
     private void ProcessAIResponse(ResponseData response)
     {
         switch (response.action)
         {
             case "walk":
-                Debug.Log($"NPC soll gehen zu: {response.target.x}, {response.target.y}, {response.target.z}");
-                // npcController.WalkTo(...);
-                _npcController.WalkTo(response.target.x, response.target.y, response.target.z);
-                break;
             case "run":
-                Debug.Log($"NPC soll rennen zu: {response.target.x}, {response.target.y}, {response.target.z}");
-                _npcController.RunTo(response.target.x, response.target.y, response.target.z);
-                break;
             case "crawl":
-                Debug.Log($"NPC soll kriechen zu: {response.target.x}, {response.target.y}, {response.target.z}");
-                _npcController.CrawlTo(response.target.x, response.target.y, response.target.z);
+                if (response.target == null || (response.target.x == 0 && response.target.y == 0 && response.target.z == 0))
+                {
+                    Debug.LogWarning($"Ungültiges Ziel für Action '{response.action}' erhalten. Ignoriere Befehl.");
+                    return;
+                }
+
+                Debug.Log($"NPC soll {response.action} zu: {response.target.x}, {response.target.y}, {response.target.z}");
+
+                if (response.action == "walk") _npcController.WalkTo(response.target.x, response.target.y, response.target.z);
+                else if (response.action == "run") _npcController.RunTo(response.target.x, response.target.y, response.target.z);
+                else if (response.action == "crawl") _npcController.CrawlTo(response.target.x, response.target.y, response.target.z);
                 break;
             case "cry":
                 Debug.Log("NPC soll weinen.");
@@ -152,61 +181,17 @@ public class NPCCommunication : MonoBehaviour
         }
     }
 
-    private Position GetPositionStruct(Transform t) => new Position
-    {
-        x = t.position.x,
-        y = t.position.y,
-        z = t.position.z
-    };
-
-    private Rotation GetRotationStruct(Transform t) => new Rotation
-    {
-        x = t.eulerAngles.x,
-        y = t.eulerAngles.y,
-        z = t.eulerAngles.z
-    };
+    private string FormatVector(Vector3 v) => $"({v.x:F2}, {v.y:F2}, {v.z:F2})";
 }
 
-[System.Serializable]
-public class MazeInitData
-{
-    public string maze;
-    public Position npcPosition;
-    public Position playerPosition;
-}
-
-[System.Serializable]
-public class StatusUpdateData
-{
-    public Position npcPosition;
-    public Rotation npcRotation;
-    public Position playerPosition;
-}
-
-[System.Serializable]
-public class Position
-{
-    public float x;
-    public float y;
-    public float z;
-}
-
-[System.Serializable]
-public class Rotation
-{
-    public float x;
-    public float y;
-    public float z;
-}
-
-[System.Serializable]
+[Serializable]
 public class ResponseData
 {
     public string action;
     public TargetPosition target;
 }
 
-[System.Serializable]
+[Serializable]
 public class TargetPosition
 {
     public int x;

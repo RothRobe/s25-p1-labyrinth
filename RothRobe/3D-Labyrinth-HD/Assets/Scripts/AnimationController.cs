@@ -39,7 +39,6 @@ public class AnimationController : MonoBehaviour
 
     public void StartIdleAnimation()
     {
-        Debug.Log("Idle Trigger");
         _animator.SetTrigger(IdleTrigger);
         if (_isCrawling)
         {
@@ -61,14 +60,12 @@ public class AnimationController : MonoBehaviour
 
     public void StartCrawlAnimation()
     {
-        Debug.Log("Crawl Trigger");
         _animator.SetTrigger(CrawlTrigger);
         _isCrawling = true;
     }
 
     public void StartRunAnimation()
     {
-        Debug.Log("Run Trigger");
         _animator.SetTrigger(RunTrigger);
         if (_isCrawling)
         {

@@ -1,13 +1,12 @@
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class NPCController : MonoBehaviour
 {
     private AnimationController _animationController;
-    private float walkSpeed = 1f;
-    private float rotateSpeed = 50f;
-    private float stopDistance = 0.3f;
+    private float _walkSpeed = 1f;
+    private float _rotateSpeed = 50f;
+    private float _stopDistance = 0.3f;
     private string _nextAnimation = "";
     
     enum MovementState
@@ -114,7 +113,7 @@ public class NPCController : MonoBehaviour
         if (direction == Vector3.zero) return;
 
         Quaternion targetRotation = Quaternion.LookRotation(direction);
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotateSpeed * Time.deltaTime);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, _rotateSpeed * Time.deltaTime);
 
         float angleDifference = Quaternion.Angle(transform.rotation, targetRotation);
         if (angleDifference < 1f)
@@ -153,9 +152,9 @@ public class NPCController : MonoBehaviour
 
         float distance = direction.magnitude;
 
-        if (distance > stopDistance)
+        if (distance > _stopDistance)
         {
-            transform.position += transform.forward * walkSpeed * Time.deltaTime;
+            transform.position += transform.forward * (_walkSpeed * Time.deltaTime);
         }
         else
         {
@@ -187,9 +186,9 @@ public class NPCController : MonoBehaviour
 
         float distance = direction.magnitude;
 
-        if (distance > stopDistance)
+        if (distance > _stopDistance)
         {
-            transform.position += transform.forward * (walkSpeed * 2.5f) * Time.deltaTime;
+            transform.position += transform.forward * (_walkSpeed * 2.5f * Time.deltaTime);
         }
         else
         {
