@@ -38,11 +38,11 @@ public class NPCController : MonoBehaviour
         }
         if (Keyboard.current.hKey.wasPressedThisFrame)
         {
-            RunTo(17,1,8);
+            RunTo(9,1,8);
         }
         if (Keyboard.current.jKey.wasPressedThisFrame)
         {
-            CrawlTo(17,1,8);
+            CrawlTo(1,1,8);
         }
         switch (_currentState)
         {
